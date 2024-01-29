@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CLionExternalBuildManager">
+    <target id="ee3aaa48-50f6-4d25-a3aa-c19163e52fb3" name="Assembler" defaultType="MAKE">
+      <configuration id="9567cfe7-7148-4634-871b-5d37433f9382" name="Assembler">
+        <build type="MAKE">
+          <make targetName="assembler" />
+        </build>
+        <clean type="MAKE">
+          <make targetName="asm_clean" />
+        </clean>
+      </configuration>
+    </target>
+    <target id="b837251b-f02b-4258-90c2-4d644b04e06d" name="Linker" defaultType="MAKE">
+      <configuration id="22ccc0aa-5155-47a0-82b5-22833633f7cc" name="Linker">
+        <build type="MAKE">
+          <make targetName="linker" />
+        </build>
+        <clean type="MAKE">
+          <make targetName="lnk_clean" />
+        </clean>
+      </configuration>
+    </target>
+    <target id="4542f7eb-3ab8-442a-b887-0556b11f8f82" name="Emulator" defaultType="MAKE">
+      <configuration id="e93268e8-c29b-4dd5-bf9f-9f074db34f23" name="Emulator">
+        <build type="MAKE">
+          <make targetName="emulator" />
+        </build>
+        <clean type="MAKE">
+          <make targetName="emu_clean" />
+        </clean>
+      </configuration>
+    </target>
+  </component>
+</project>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MakefileBuildTargetsManager">
+    <user-build-targets>
+      <build-target name="assembler">
+        <build-configurations>
+          <build-configuration>
+            <make-targets>
+              <make-target>assembler</make-target>
+            </make-targets>
+          </build-configuration>
+        </build-configurations>
+      </build-target>
+      <build-target name="linker">
+        <build-configurations>
+          <build-configuration>
+            <make-targets>
+              <make-target>linker</make-target>
+            </make-targets>
+          </build-configuration>
+        </build-configurations>
+      </build-target>
+      <build-target name="emulator">
+        <build-configurations>
+          <build-configuration>
+            <make-targets>
+              <make-target>emulator</make-target>
+            </make-targets>
+          </build-configuration>
+        </build-configurations>
+      </build-target>
+      <build-target name="asm_clean">
+        <build-configurations>
+          <build-configuration>
+            <make-targets>
+              <make-target>asm_clean</make-target>
+            </make-targets>
+          </build-configuration>
+        </build-configurations>
+      </build-target>
+      <build-target name="lnk_clean">
+        <build-configurations>
+          <build-configuration>
+            <make-targets>
+              <make-target>lnk_clean</make-target>
+            </make-targets>
+          </build-configuration>
+        </build-configurations>
+      </build-target>
+      <build-target name="emu_clean">
+        <build-configurations>
+          <build-configuration>
+            <make-targets>
+              <make-target>emu_clean</make-target>
+            </make-targets>
+          </build-configuration>
+        </build-configurations>
+      </build-target>
+    </user-build-targets>
+  </component>
+</project>

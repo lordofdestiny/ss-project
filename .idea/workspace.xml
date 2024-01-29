@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="ss-ale" targetName="linker" />
+      <config projectName="ss-ale" targetName="emu_clean" />
+      <config projectName="ss-ale" targetName="all" />
+      <config projectName="ss-ale" targetName="assembler" />
+      <config projectName="ss-ale" targetName="asm_clean" />
+      <config projectName="ss-ale" targetName="lnk_clean" />
+      <config projectName="ss-ale" targetName="emulator" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="33d1659d-8852-44eb-8d75-d6c2620ad82e" name="Changes" comment="touched up the Makefile" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="clangTidyViaClangd" value="false" />
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="redesign_parsing" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="redesign_parsing" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="c6352665-fc71-43a2-bade-0924bde420b9" />
+        <option name="url" value="https://github.com/lordofdestiny/ss-project.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file:///usr/include/c++/12/bits/char_traits.h" root0="SKIP_INSPECTION" />
+    <setting file="file:///usr/include/c++/12/bits/fs_path.h" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="Make.Settings">
+    <option name="path" value="\\wsl$\Ubuntu\usr\bin\make" />
+    <option name="showHiddenInToolWindow" value="true" />
+  </component>
+  <component name="MakefileLocalSettings">
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="ss-ale" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="ss-ale" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="OCResolveContextSettings">
+    <option name="configuration" value="$PROJECT_DIR$/src/assembler/parser_driver.cpp" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2023" />
+    <option name="minorVersion" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2SLHisRnaNlJTqk9SiSxIYRmnS0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Makefile Target.assembler.executor&quot;: &quot;Run&quot;,
+    &quot;Makefile Target.clean.executor&quot;: &quot;Run&quot;,
+    &quot;Makefile Target.emulator.executor&quot;: &quot;Run&quot;,
+    &quot;Native Application.Assembler.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/djumi/Desktop/ss-ale/src/assembler&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RdControllerToolWindowsLayoutState" isNewUi="true">
+    <layout>
+      <window_info id="Space Code Reviews" />
+      <window_info id="Bookmarks" side_tool="true" />
+      <window_info id="Merge Requests" />
+      <window_info id="Commit_Guest" />
+      <window_info id="Pull Requests" weight="0.16425781" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15136719" />
+      <window_info id="Commit" order="1" weight="0.15136719" />
+      <window_info id="Structure" order="2" side_tool="true" weight="0.115429685" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="TypeScript" />
+      <window_info anchor="bottom" id="Build" />
+      <window_info anchor="bottom" id="Python Packages" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Messages" weight="0.3301006" />
+      <window_info anchor="bottom" id="File Transfer" />
+      <window_info active="true" anchor="bottom" id="Run" visible="true" weight="0.3301006" />
+      <window_info anchor="bottom" id="Vcpkg" />
+      <window_info anchor="bottom" id="Find" show_stripe_button="false" weight="0.3301006" />
+      <window_info anchor="bottom" id="clangd" />
+      <window_info anchor="bottom" id="Problems View" order="0" />
+      <window_info anchor="bottom" id="Terminal" order="1" weight="0.3301006" />
+      <window_info anchor="bottom" id="Services" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3301006" />
+      <window_info anchor="bottom" id="Version Control" order="4" weight="0.2417385" />
+      <window_info active="true" anchor="right" id="make" sideWeight="0.4994213" side_tool="true" visible="true" weight="0.12363282" />
+      <window_info anchor="right" id="Meet New UI" side_tool="true" />
+      <window_info active="true" anchor="right" id="Notifications" order="0" sideWeight="0.5005787" visible="true" weight="0.12363282" />
+      <window_info anchor="right" id="AIAssistant" order="1" sideWeight="0.5005787" weight="0.12363282" />
+      <window_info anchor="right" id="Database" order="2" weight="0.25" />
+      <window_info anchor="right" id="github.copilotToolWindow" order="3" weight="0.12363282" />
+    </layout>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\djumi\Desktop\ss-ale\src\assembler" />
+      <recent name="C:\Users\djumi\Desktop\ss-ale\include\assembler" />
+      <recent name="C:\Users\djumi\Desktop\ss-project" />
+      <recent name="$PROJECT_DIR$/build" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\djumi\Desktop\ss-project\src\assembler\visitors" />
+      <recent name="E:\Local Disk\Fakultet\6. semestar\SS\ss-project\src\assembler\ast" />
+      <recent name="C:\Users\djumi\Desktop\ss-project\src\assembler" />
+      <recent name="C:\Users\djumi\Desktop\ss-project\include\assembler" />
+      <recent name="C:\Users\djumi\Desktop\ss-project\misc" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Makefile Target.clean">
+    <configuration name="Assembler" type="CLionNativeAppRunConfigurationType" PROGRAM_PARAMS="../in.snazzle" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://./build" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ss-ale" TARGET_NAME="assembler" CONFIG_NAME="assembler" version="1" RUN_PATH="assembler">
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="assembler" run_configuration_type="MAKEFILE_TARGET_RUN_CONFIGURATION" />
+      </method>
+    </configuration>
+    <configuration name="Emulator" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://./build" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ss-ale" TARGET_NAME="Assembler" CONFIG_NAME="Assembler" version="1" RUN_PATH="emulator">
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="emulator" run_configuration_type="MAKEFILE_TARGET_RUN_CONFIGURATION" />
+      </method>
+    </configuration>
+    <configuration name="Linker" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://./build" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ss-ale" TARGET_NAME="Linker" CONFIG_NAME="Linker" version="1" RUN_PATH="linker">
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="linker" run_configuration_type="MAKEFILE_TARGET_RUN_CONFIGURATION" />
+      </method>
+    </configuration>
+    <configuration name="all" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="all" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="asm_clean" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="asm_clean" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="assembler" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="assembler" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="bison" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="bison" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="clean" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="clean" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="emulator" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="emulator" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="linker" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="linker" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="snazzle" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="snazzle" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Makefile Target.linker" />
+      <item itemvalue="Makefile Target.emulator" />
+      <item itemvalue="Makefile Target.assembler" />
+      <item itemvalue="Makefile Target.all" />
+      <item itemvalue="Makefile Target.asm_clean" />
+      <item itemvalue="Makefile Target.bison" />
+      <item itemvalue="Makefile Target.clean" />
+      <item itemvalue="Makefile Target.snazzle" />
+      <item itemvalue="Native Application.Assembler" />
+      <item itemvalue="Native Application.Emulator" />
+      <item itemvalue="Native Application.Linker" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile Target.clean" />
+        <item itemvalue="Makefile Target.all" />
+        <item itemvalue="Makefile Target.snazzle" />
+        <item itemvalue="Makefile Target.bison" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="33d1659d-8852-44eb-8d75-d6c2620ad82e" name="Changes" comment="" />
+      <created>1688919072620</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1688919072620</updated>
+      <workItem from="1688919075106" duration="9342000" />
+      <workItem from="1688941447270" duration="1223000" />
+      <workItem from="1688942682070" duration="637000" />
+      <workItem from="1688943328735" duration="344000" />
+      <workItem from="1688943695404" duration="9064000" />
+      <workItem from="1688963876370" duration="116896000" />
+      <workItem from="1689153054697" duration="164017000" />
+      <workItem from="1689507721311" duration="2918000" />
+      <workItem from="1689534814785" duration="4483000" />
+      <workItem from="1689596849707" duration="22711000" />
+      <workItem from="1689693620262" duration="19903000" />
+      <workItem from="1689872376941" duration="14671000" />
+      <workItem from="1697203570518" duration="1000" />
+      <workItem from="1697203754040" duration="31000" />
+      <workItem from="1697204466038" duration="3000" />
+      <workItem from="1698530806612" duration="3303000" />
+      <workItem from="1698621085013" duration="1539000" />
+      <workItem from="1698630177353" duration="16000" />
+      <workItem from="1700608279329" duration="9876000" />
+      <workItem from="1700618820567" duration="1689000" />
+      <workItem from="1700620879375" duration="13304000" />
+      <workItem from="1700656857016" duration="2619000" />
+      <workItem from="1700767562630" duration="7364000" />
+      <workItem from="1700776661850" duration="11046000" />
+      <workItem from="1700810617630" duration="3000" />
+      <workItem from="1700846325885" duration="2849000" />
+      <workItem from="1700849210194" duration="490000" />
+      <workItem from="1700860944837" duration="1160000" />
+      <workItem from="1700960919195" duration="313000" />
+      <workItem from="1702724867352" duration="131000" />
+      <workItem from="1702814756967" duration="131000" />
+      <workItem from="1706266700585" duration="11715000" />
+      <workItem from="1706306789211" duration="42000" />
+      <workItem from="1706306842628" duration="7495000" />
+      <workItem from="1706437873734" duration="19092000" />
+      <workItem from="1706475362093" duration="11854000" />
+      <workItem from="1706487668198" duration="594000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initial commit, project setup">
+      <option name="closed" value="true" />
+      <created>1688941668522</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1688941668522</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Test parser for a simple imaginary syntax works and is linking to the main code">
+      <created>1688979259141</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1688979259141</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Complete implementation of the file parsing process, with testing code">
+      <created>1689198674586</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1689198674586</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Improved string literal parsing to be C-like, quotation marks are not part of the string literal anymore">
+      <created>1689249202464</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1689249202464</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Started implementing code compilation">
+      <option name="closed" value="true" />
+      <created>1700608636077</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1700608636077</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Started implementing code compilation">
+      <option name="closed" value="true" />
+      <created>1700608667375</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1700608667375</updated>
+    </task>
+    <task id="LOCAL-00007">
+      <option name="closed" value="true" />
+      <created>1700612506360</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1700612506360</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Code style changes">
+      <option name="closed" value="true" />
+      <created>1700769588435</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1700769588435</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Implemented AST structures">
+      <option name="closed" value="true" />
+      <created>1700769606997</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1700769606997</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added value_getter wrapper for Visitors, that emables returing values when using visitor pattern">
+      <option name="closed" value="true" />
+      <created>1700774666022</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1700774666022</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Fixed output for old assembler objects">
+      <option name="closed" value="true" />
+      <created>1700775846494</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1700775846494</updated>
+    </task>
+    <task id="LOCAL-00012" summary="touched up the Makefile">
+      <option name="closed" value="true" />
+      <created>1700781080752</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1700781080752</updated>
+    </task>
+    <task id="LOCAL-00013" summary="touched up the Makefile">
+      <option name="closed" value="true" />
+      <created>1700861412686</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1700861412686</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.y" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
+    <MESSAGE value="Initial commit, project setup" />
+    <MESSAGE value="Test parser for a simple imaginary syntax works and is linking to the main code" />
+    <MESSAGE value="Complete implementation of the file parsing process, with testing code" />
+    <MESSAGE value="Started implementing code compilation" />
+    <MESSAGE value="Improved string literal parsing to be C-like, quotation marks are not part of the string literal anymore" />
+    <MESSAGE value="Lot of unorganized changes soon to be scraped" />
+    <MESSAGE value="Code style changes" />
+    <MESSAGE value="Implemented AST structures" />
+    <MESSAGE value="Added value_getter wrapper for Visitors, that emables returing values when using visitor pattern" />
+    <MESSAGE value="Fixed output for old assembler objects" />
+    <MESSAGE value="touched up the Makefile" />
+    <option name="LAST_COMMIT_MESSAGE" value="touched up the Makefile" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

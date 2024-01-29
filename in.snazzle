@@ -1,0 +1,66 @@
+# file: math.s
+
+.global mathAdd, mathSub, mathMul, mathDiv
+.extern ilovestuff
+
+.section math
+.skip 010
+mathAdd:
+    push %r2
+    ld [%sp + 0x08], %r1
+    ld [%sp - 0x0C], %r2
+    add %r2, %r1 # r1 used for the result
+    pop %r2
+    bgt %r1, %r2, mathSub
+    ret
+
+mathSub:
+    push %r2
+    ld [%sp - 0x08], %r1
+    ld [%sp + 0x0C], %r2
+    sub %r2, %r1 # r1 used for the result
+    pop %r2
+    ret
+
+call  onomatopeja
+.section rest
+.ascii "I LOVE \t \101\\THE POLICE \77"
+label2:
+mathMul:
+    push %r2
+    ld [%sp + 0x08], %r1
+    ld [%sp + 0x0C], %r2
+    mul %r2, %r1 # r1 used for the result
+    pop %r2
+    beq %r0, %r4, 1151
+    ret
+
+mathDiv:
+    push %r2
+    ld [%sp + 0x08], %r1
+    ld [%sp + 0x0C], %r2
+    div %r2, %r1 # r1 used for the result
+    pop %r2
+    jmp 0x511
+    ret
+
+hello: .word 0x11, mathDiv, -033
+.equ please, help
+.equ please, help - 0x11
+.equ please, - help + 0x11
+.equ please, + help - 0x11
+.equ please, -help + 0x11 - hello2
+.equ please, +help - 0x11 + hello
+.equ please, help - 0x11 - buffered
+.equ please, +help - 0x11 + + 012 + testiranje
+.equ please, +help - 0x11 + - 012 + testiranje
+.equ please, +help - 0x11 - + 012 + testiranje
+.equ please, +help - 0x11 -  -012 + testiranje
+.word 0x11, mathDiv, -033
+
+ld $1, %r1
+
+csrrd %cause, %r11
+csrwr %r4 , %handler
+
+.end
