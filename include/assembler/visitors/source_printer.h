@@ -11,19 +11,19 @@
 #include "parser_driver.h"
 #include "ast/stmt_t.h"
 
-namespace m_asm::ast::visitor {
-    class printer : public m_asm::ast::stmt_t::visitor_t,
-                    public m_asm::ast::expr_t::visitor_t {
+namespace m_asm::visitor {
+    class source_printer : public m_asm::ast::stmt_t::visitor_t,
+                           public m_asm::ast::expr_t::visitor_t {
     protected:
         std::stringstream ss;
     public:
-        printer() = default;
+        source_printer() = default;
 
-        printer(printer const &) = delete;
+        source_printer(source_printer const &) = delete;
 
-        printer(printer &&) noexcept = default;
+        source_printer(source_printer &&) noexcept = default;
 
-        ~printer() override = default;
+        ~source_printer() override = default;
 
         void accept(m_asm::parsed_file_t const &file) {
             for (const auto &statement: file) {
@@ -41,7 +41,7 @@ namespace m_asm::ast::visitor {
         }
 
     private:
-        void print_word_arg(word_argument_t const &wordArg);
+        void print_word_arg(m_asm::ast::word_argument_t const &wordArg);
 
         void visit_label(ast::stmt_t::label_t &label) override;
 

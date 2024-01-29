@@ -3,7 +3,7 @@
 #include <variant>
 
 #include "parser_driver.h"
-#include "visitors/printer.h"
+#include "visitors/source_printer.h"
 
 
 int main(int argc, char **argv) {
@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 
     const auto &lines = std::get<parsed_file_t>(result);
 
-    m_asm::ast::visitor::printer printer;
+    m_asm::visitor::source_printer printer;
     printer.accept(lines);
 
     std::cout << printer.to_string();
