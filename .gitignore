@@ -1,4 +1,8 @@
 build
+location.hh
+parser.hh
+lexer.cc
+parser.cc
 
 # Prerequisites
 *.d
