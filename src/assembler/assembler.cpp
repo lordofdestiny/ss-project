@@ -23,12 +23,13 @@ namespace m_asm {
     }
 
     void assembler::create_section(const std::string &name) {
-        auto it = std::find_if(sections.begin(), sections.end(),
-                               [&](auto const &section) -> bool {
-                                   return section.name == name;
-                               });
-        if (it != sections.end()) {
-            if (sections.back() == *it) {
+        if (const auto it =
+                    std::find_if(sections.begin(), sections.end(),
+                                 [&](auto const &section) -> bool {
+                                     return section.name == name;
+                                 });
+            it != sections.end()) {
+            if (*it == sections.back()) {
                 throw section_exception("section already opened");
             }
             throw section_exception("cannot reopen closed section");

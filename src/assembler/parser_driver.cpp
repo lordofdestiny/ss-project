@@ -9,26 +9,24 @@
 namespace fs = std::filesystem;
 
 namespace m_asm {
-
     auto parser_driver::parse(fs::path const &f) -> parse_result_t & {
-
-        std::unique_ptr<FILE, std::decay_t<decltype(fclose)>> file(
-                std::fopen(fs::absolute(f).c_str(), "r"),
-                std::fclose);
+        std::unique_ptr<FILE, std::decay_t<decltype(fclose)> > file(
+            std::fopen(fs::absolute(f).c_str(), "r"),
+            std::fclose);
 
         if (!file) {
             throw fs::filesystem_error(
-                    "cannot open file", f,
-                    std::make_error_code(std::errc::io_error));
+                "cannot open file", f,
+                std::make_error_code(std::errc::io_error));
         }
 
-        struct set_yyin{
-            set_yyin(decltype(file) &file) {
+        struct set_yyin {
+            explicit set_yyin(const decltype(file) &file) {
                 yyin = file.get();
             }
 
             ~set_yyin() {
-                yyin = NULL;
+                yyin = nullptr;
             }
         } guard(file);
         std::string myf = f;

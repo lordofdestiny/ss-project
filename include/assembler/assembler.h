@@ -96,6 +96,7 @@ namespace m_asm {
         }
 
         void first_pass();
+
         void second_pass();
 
     private:
