@@ -42,7 +42,7 @@ namespace m_asm::visitor {
         }
 
     private:
-        void print_word_arg(m_asm::ast::word_argument_t const &wordArg);
+        void print_word_arg(ast::word_argument_t const &wordArg);
 
         void visit_label(ast::stmt_t::label_t &label) override;
 

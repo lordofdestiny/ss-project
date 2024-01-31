@@ -20,11 +20,20 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33d1659d-8852-44eb-8d75-d6c2620ad82e" name="Changes" comment="Reimplemented most of the old functionality">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+    <list default="true" id="33d1659d-8852-44eb-8d75-d6c2620ad82e" name="Changes" comment="Fixed small lint errors">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assembler/symbols/symbol_t.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/assembler/symbols/symbol_t.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/assembler/assembler.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/assembler.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/assembler/ast/stmt_t.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/ast/stmt_t.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/assembler/parser_driver.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/parser_driver.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/assembler/parser_objects.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/parser_objects.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/assembler/symbols/symtab_t.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/symbols/symtab_t.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/assembler/utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/utility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/assembler/visitors/first_pass.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/visitors/first_pass.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/assembler/visitors/second_pass.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/visitors/second_pass.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/assembler/visitors/source_printer.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/visitors/source_printer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assembler/assembler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/assembler/assembler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assembler/parser_driver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/assembler/parser_driver.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assembler/utility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/assembler/utility.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +84,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file:////wsl.localhost/Ubuntu/usr/include/c++/11/bits/basic_string.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/djumi/Desktop/ss-ale/src/assembler/symbols/symbol_t.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/djumi/Desktop/ss-ale/src/assembler/symbols/symtab_t.cpp" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="Make.Settings">
     <option name="path" value="\\wsl$\Ubuntu\usr\bin\make" />
@@ -345,7 +356,7 @@
       <workItem from="1706606329602" duration="7413000" />
       <workItem from="1706704187605" duration="206000" />
       <workItem from="1706704442885" duration="1850000" />
-      <workItem from="1706708472218" duration="1223000" />
+      <workItem from="1706708472218" duration="3758000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit, project setup">
       <option name="closed" value="true" />
@@ -480,7 +491,23 @@
       <option name="project" value="LOCAL" />
       <updated>1706709234094</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Reimplemented most of the old functionality">
+      <option name="closed" value="true" />
+      <created>1706709785226</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1706709785226</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Fixed small lint errors">
+      <option name="closed" value="true" />
+      <created>1706709802938</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1706709802938</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -544,7 +571,8 @@
     <MESSAGE value="Updated .gitignore to ignore lexer and parser generated sources" />
     <MESSAGE value="Made up to date with project structure" />
     <MESSAGE value="Reimplemented most of the old functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reimplemented most of the old functionality" />
+    <MESSAGE value="Fixed small lint errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed small lint errors" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

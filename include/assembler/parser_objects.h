@@ -26,8 +26,10 @@ namespace m_asm {
         std::string message;
         int line, column;
 
-        friend std::ostream& operator<<(std::ostream& os, parse_error_t const& loc);
+        friend std::ostream &operator<<(std::ostream &os, parse_error_t const &err);
     };
+
+    std::ostream &operator<<(std::ostream &os, parse_error_t const &err);
 
     using parse_result_t = std::variant<std::monostate, parsed_file_t, parse_error_t>;
 }

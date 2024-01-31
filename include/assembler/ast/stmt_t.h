@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <ostream>
 #include <unordered_map>
 
 #include "utility.h"
@@ -16,15 +17,16 @@
 namespace m_asm::ast {
     namespace operand {
         struct reg_t {
-            reg_t(uint8_t value = 0) :
-                    value(value < 16 ? value : value - 16),
-                    is_csr(value >= 16) {}
+            reg_t(const uint8_t value = 0)
+                : value(value < 16 ? value : value - 16),
+                  is_csr(value >= 16) {
+            }
 
             operator uint8_t() const {
                 return get_ord();
             }
 
-            uint8_t get_ord() const {
+            [[nodiscard]] uint8_t get_ord() const {
                 return is_csr ? value - 16 : value;
             }
 
@@ -51,22 +53,17 @@ namespace m_asm::ast {
                 REG_MEMORY_ADDR,
                 REG_ADDR_LITERAL_OFFSET,
                 REG_ADDR_SYMBOL_OFFSET
-
-            } type;
+            } type{};
 
             friend std::ostream &operator<<(std::ostream &os, operand_t &op);
 
             std::variant<
-                    reg_t,
-                    number_t,
-                    symbol_t,
-                    reg_literal_t,
-                    reg_symbol_t
-            > value;
+                reg_t, number_t, symbol_t,
+                reg_literal_t, reg_symbol_t
+            > value{};
         };
 
         std::ostream &operator<<(std::ostream &os, operand_t &op);
-
     };
 
     using word_argument_t = std::variant<std::string, uint32_t>;
@@ -125,7 +122,8 @@ namespace m_asm::ast {
         struct branch_t;
 
         explicit instr_t(mnemonic_t type)
-                : type(type) {}
+            : type(type) {
+        }
 
         mnemonic_t type;
     };
@@ -148,118 +146,110 @@ namespace m_asm::ast {
 
         virtual ~visitor_t() = 0;
 
-        virtual void visit_label(stmt_t::label_t &stmt) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_label(stmt);
+        virtual void visit_label(label_t &stmt) {
+            const_cast<const visitor_t *>(this)->visit_label(stmt);
         }
 
-        virtual void visit_label(stmt_t::label_t &) const {
+        virtual void visit_label(label_t &) const {
         }
 
-        virtual void visit_global(stmt_t::global_t &stmt) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_global(stmt);
+        virtual void visit_global(global_t &stmt) {
+            const_cast<const visitor_t *>(this)->visit_global(stmt);
         }
 
-        virtual void visit_global(stmt_t::global_t &) const {
+        virtual void visit_global(global_t &) const {
         }
 
-        virtual void visit_extern(stmt_t::extern_t &stmt) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_extern(stmt);
+        virtual void visit_extern(extern_t &stmt) {
+            const_cast<const visitor_t *>(this)->visit_extern(stmt);
         }
 
-        virtual void visit_extern(stmt_t::extern_t &) const {
-
+        virtual void visit_extern(extern_t &) const {
         }
 
-        virtual void visit_section(stmt_t::section_t &stmt) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_section(stmt);
+        virtual void visit_section(section_t &stmt) {
+            const_cast<const visitor_t *>(this)->visit_section(stmt);
         }
 
-        virtual void visit_section(stmt_t::section_t &) const {
-
+        virtual void visit_section(section_t &) const {
         }
 
-        virtual void visit_word(stmt_t::word_t &stmt) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_word(stmt);
+        virtual void visit_word(word_t &stmt) {
+            const_cast<const visitor_t *>(this)->visit_word(stmt);
         }
 
-        virtual void visit_word(stmt_t::word_t &) const {
-
+        virtual void visit_word(word_t &) const {
         }
 
-        virtual void visit_skip(stmt_t::skip_t &stmt) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_skip(stmt);
+        virtual void visit_skip(skip_t &stmt) {
+            const_cast<const visitor_t *>(this)->visit_skip(stmt);
         }
 
-        virtual void visit_skip(stmt_t::skip_t &) const {
-
+        virtual void visit_skip(skip_t &) const {
         }
 
-        virtual void visit_ascii(stmt_t::ascii_t &stmt) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_ascii(stmt);
+        virtual void visit_ascii(ascii_t &stmt) {
+            const_cast<const visitor_t *>(this)->visit_ascii(stmt);
         }
 
-        virtual void visit_ascii(stmt_t::ascii_t &) const {
-
+        virtual void visit_ascii(ascii_t &) const {
         }
 
-        virtual void visit_equals(stmt_t::equals_t &stmt) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_equals(stmt);
+        virtual void visit_equals(equals_t &stmt) {
+            const_cast<const visitor_t *>(this)->visit_equals(stmt);
         }
 
-        virtual void visit_equals(stmt_t::equals_t &) const {
+        virtual void visit_equals(equals_t &) const {
         }
 
-        virtual void visit_paramless_instr(stmt_t::instr_t::paramless_t &instr) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_paramless_instr(instr);
+        virtual void visit_paramless_instr(instr_t::paramless_t &instr) {
+            const_cast<const visitor_t *>(this)->visit_paramless_instr(instr);
         }
 
-        virtual void visit_paramless_instr(stmt_t::instr_t::paramless_t &) const {
+        virtual void visit_paramless_instr(instr_t::paramless_t &) const {
         }
 
-        virtual void visit_unary_instr(stmt_t::instr_t::unary_t &instr) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_unary_instr(instr);
+        virtual void visit_unary_instr(instr_t::unary_t &instr) {
+            const_cast<const visitor_t *>(this)->visit_unary_instr(instr);
         }
 
-        virtual void visit_unary_instr(stmt_t::instr_t::unary_t &) const {
+        virtual void visit_unary_instr(instr_t::unary_t &) const {
         }
 
-        virtual void visit_binary_instr(stmt_t::instr_t::binary_t &instr) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_binary_instr(instr);
+        virtual void visit_binary_instr(instr_t::binary_t &instr) {
+            const_cast<const visitor_t *>(this)->visit_binary_instr(instr);
         }
 
-        virtual void visit_binary_instr(stmt_t::instr_t::binary_t &) const {
+        virtual void visit_binary_instr(instr_t::binary_t &) const {
         }
 
-        virtual void visit_memory_instr(stmt_t::instr_t::memory_t &instr) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_memory_instr(instr);
+        virtual void visit_memory_instr(instr_t::memory_t &instr) {
+            const_cast<const visitor_t *>(this)->visit_memory_instr(instr);
         }
 
-        virtual void visit_memory_instr(stmt_t::instr_t::memory_t &) const {
-
+        virtual void visit_memory_instr(instr_t::memory_t &) const {
         }
 
-        virtual void visit_uncond_instr(stmt_t::instr_t::uncond_t &instr) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_uncond_instr(instr);
+        virtual void visit_uncond_instr(instr_t::uncond_t &instr) {
+            const_cast<const visitor_t *>(this)->visit_uncond_instr(instr);
         }
 
-        virtual void visit_uncond_instr(stmt_t::instr_t::uncond_t &) const {
-
+        virtual void visit_uncond_instr(instr_t::uncond_t &) const {
         }
 
-        virtual void visit_branch_instr(stmt_t::instr_t::branch_t &instr) {
-            const_cast<const stmt_t::visitor_t *>(this)->visit_branch_instr(instr);
+        virtual void visit_branch_instr(instr_t::branch_t &instr) {
+            const_cast<const visitor_t *>(this)->visit_branch_instr(instr);
         }
 
-        virtual void visit_branch_instr(stmt_t::instr_t::branch_t &) const {
-
+        virtual void visit_branch_instr(instr_t::branch_t &) const {
         }
     };
 
     struct stmt_t::label_t final : stmt_t {
         template<typename T,
-                utility::enable_type_t<std::string, T> = true>
-        explicit label_t(T &&label):
-                label(std::forward<T>(label)) {}
+            utility::enable_type_t<std::string, T>  = true>
+        explicit label_t(T &&label): label(std::forward<T>(label)) {
+        }
 
         void accept(visitor_t &visitor) final {
             visitor.visit_label(*this);
@@ -274,9 +264,9 @@ namespace m_asm::ast {
 
     struct stmt_t::global_t final : stmt_t {
         template<typename T,
-                utility::enable_type_t<utility::str_vec_t, T> = true>
-        explicit global_t(T &&symbols) :
-                symbols(std::forward<T>(symbols)) {}
+            utility::enable_type_t<utility::str_vec_t, T>  = true>
+        explicit global_t(T &&symbols) : symbols(std::forward<T>(symbols)) {
+        }
 
         void accept(visitor_t &visitor) final {
             visitor.visit_global(*this);
@@ -291,9 +281,9 @@ namespace m_asm::ast {
 
     struct stmt_t::extern_t final : stmt_t {
         template<typename T,
-                utility::enable_type_t<utility::str_vec_t, T> = true>
-        explicit extern_t(T &&symbols) :
-                symbols(std::forward<T>(symbols)) {}
+            utility::enable_type_t<utility::str_vec_t, T>  = true>
+        explicit extern_t(T &&symbols) : symbols(std::forward<T>(symbols)) {
+        }
 
         void accept(visitor_t &visitor) final {
             visitor.visit_extern(*this);
@@ -308,9 +298,9 @@ namespace m_asm::ast {
 
     struct stmt_t::section_t final : stmt_t {
         template<typename T,
-                utility::enable_type_t<std::string, T> = true>
-        explicit section_t(T &&name):
-                name(std::forward<T>(name)) {}
+            utility::enable_type_t<std::string, T>  = true>
+        explicit section_t(T &&name): name(std::forward<T>(name)) {
+        }
 
         void accept(visitor_t &visitor) final {
             visitor.visit_section(*this);
@@ -325,9 +315,9 @@ namespace m_asm::ast {
 
     struct stmt_t::word_t final : stmt_t {
         template<typename T,
-                utility::enable_type_t<word_arguments_t, T> = true>
-        explicit word_t(T &&values) :
-                word_values(std::forward<T>(values)) {}
+            utility::enable_type_t<word_arguments_t, T>  = true>
+        explicit word_t(T &&values) : word_values(std::forward<T>(values)) {
+        }
 
         void accept(visitor_t &visitor) final {
             visitor.visit_word(*this);
@@ -341,8 +331,8 @@ namespace m_asm::ast {
     };
 
     struct stmt_t::skip_t final : stmt_t {
-        explicit skip_t(uint32_t size) :
-                size(size) {}
+        explicit skip_t(const uint32_t size) : size(size) {
+        }
 
         void accept(visitor_t &visitor) final {
             visitor.visit_skip(*this);
@@ -357,9 +347,9 @@ namespace m_asm::ast {
 
     struct stmt_t::ascii_t final : stmt_t {
         template<typename T,
-                utility::enable_type_t<std::string, T> = true>
-        explicit ascii_t(T &&value):
-                value(std::forward<T>(value)) {}
+            utility::enable_type_t<std::string, T>  = true>
+        explicit ascii_t(T &&value): value(std::forward<T>(value)) {
+        }
 
         void accept(visitor_t &visitor) final {
             visitor.visit_ascii(*this);
@@ -375,10 +365,11 @@ namespace m_asm::ast {
 
     struct stmt_t::equals_t final : stmt_t {
         template<typename T,
-                utility::enable_type_t<std::string, T> = true>
+            utility::enable_type_t<std::string, T>  = true>
         equals_t(T &&symbol, std::unique_ptr<expr_t> expr)
-                : symbol(std::forward<T>(symbol)),
-                  expr(std::move(expr)) {}
+            : symbol(std::forward<T>(symbol)),
+              expr(std::move(expr)) {
+        }
 
         void accept(visitor_t &visitor) final {
             visitor.visit_equals(*this);
@@ -389,12 +380,13 @@ namespace m_asm::ast {
         }
 
         std::string symbol;
-        std::unique_ptr<expr_t> expr;
+        std::unique_ptr<expr_t> expr{};
     };
 
-    struct stmt_t::instr_t::paramless_t : stmt_t::instr_t {
-        explicit paramless_t(mnemonic_t type)
-                : instr_t(type) {}
+    struct stmt_t::instr_t::paramless_t final : instr_t {
+        explicit paramless_t(const mnemonic_t type)
+            : instr_t(type) {
+        }
 
         void accept(visitor_t &visitor) override {
             visitor.visit_paramless_instr(*this);
@@ -405,9 +397,10 @@ namespace m_asm::ast {
         }
     };
 
-    struct stmt_t::instr_t::unary_t : stmt_t::instr_t {
-        unary_t(mnemonic_t type, operand::reg_t reg) :
-                instr_t(type), reg(reg) {}
+    struct stmt_t::instr_t::unary_t final : instr_t {
+        unary_t(const mnemonic_t type, const operand::reg_t reg)
+            : instr_t(type), reg(reg) {
+        }
 
         void accept(visitor_t &visitor) override {
             visitor.visit_unary_instr(*this);
@@ -420,11 +413,12 @@ namespace m_asm::ast {
         operand::reg_t reg;
     };
 
-    struct stmt_t::instr_t::binary_t : stmt_t::instr_t {
-        binary_t(mnemonic_t type,
-                 operand::reg_t first,
-                 operand::reg_t second) :
-                instr_t(type), first(first), second(second) {}
+    struct stmt_t::instr_t::binary_t final : instr_t {
+        binary_t(const mnemonic_t type,
+                 const operand::reg_t first,
+                 const operand::reg_t second)
+            : instr_t(type), first(first), second(second) {
+        }
 
         void accept(visitor_t &visitor) override {
             visitor.visit_binary_instr(*this);
@@ -437,18 +431,22 @@ namespace m_asm::ast {
         operand::reg_t first, second;
     };
 
-    struct stmt_t::instr_t::memory_t : stmt_t::instr_t {
+    struct stmt_t::instr_t::memory_t final : instr_t {
         template<typename T,
-                utility::enable_type_t<operand::operand_t, T> = true>
-        memory_t(mnemonic_t type, operand::reg_t reg, T &&operand) :
-                instr_t(type), reg(reg),
-                operand(std::forward<T>(operand)) {}
+            utility::enable_type_t<operand::operand_t, T>  = true>
+        memory_t(const mnemonic_t type,
+                 const operand::reg_t reg, T &&operand)
+            : instr_t(type), reg(reg),
+              operand(std::forward<T>(operand)) {
+        }
 
         template<typename T,
-                utility::enable_type_t<operand::operand_t, T> = true>
-        memory_t(mnemonic_t type, T &&operand, operand::reg_t reg) :
-                instr_t(type), reg(reg),
-                operand(std::forward<T>(operand)) {}
+            utility::enable_type_t<operand::operand_t, T>  = true>
+        memory_t(const mnemonic_t type, T &&operand,
+                 const operand::reg_t reg)
+            : instr_t(type), reg(reg),
+              operand(std::forward<T>(operand)) {
+        }
 
         void accept(visitor_t &visitor) override {
             visitor.visit_memory_instr(*this);
@@ -462,11 +460,12 @@ namespace m_asm::ast {
         operand::operand_t operand;
     };
 
-    struct stmt_t::instr_t::uncond_t : stmt_t::instr_t {
+    struct stmt_t::instr_t::uncond_t final : instr_t {
         template<typename T,
-                utility::enable_type_t<operand::operand_t, T> = true>
-        uncond_t(mnemonic_t type, T &&operand) :
-                instr_t(type), operand(std::forward<T>(operand)) {}
+            utility::enable_type_t<operand::operand_t, T>  = true>
+        uncond_t(const mnemonic_t type, T &&operand)
+            : instr_t(type), operand(std::forward<T>(operand)) {
+        }
 
         void accept(visitor_t &visitor) override {
             visitor.visit_uncond_instr(*this);
@@ -479,13 +478,16 @@ namespace m_asm::ast {
         operand::operand_t operand;
     };
 
-    struct stmt_t::instr_t::branch_t : stmt_t::instr_t {
+    struct stmt_t::instr_t::branch_t final : instr_t {
         template<typename T,
-                utility::enable_type_t<operand::operand_t, T> = true>
-        branch_t(mnemonic_t type, int reg1, int reg2, T &&operand)
-                : stmt_t::instr_t(type),
-                  reg1(reg1), reg2(reg2),
-                  operand(std::forward<T>(operand)) {}
+            utility::enable_type_t<operand::operand_t, T>  = true>
+        branch_t(const mnemonic_t type,
+                 const int reg1, const int reg2,
+                 T &&operand)
+            : instr_t(type),
+              reg1(reg1), reg2(reg2),
+              operand(std::forward<T>(operand)) {
+        }
 
         void accept(visitor_t &visitor) override {
             visitor.visit_branch_instr(*this);

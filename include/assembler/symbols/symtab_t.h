@@ -14,7 +14,7 @@ namespace m_asm::symbols {
     public:
         symtab_t() = default;
 
-        symtab_t(std::initializer_list <symbol_t> symbols) : m_symbols(symbols) {}
+        explicit symtab_t(const std::initializer_list <symbol_t> symbols) : m_symbols(symbols) {}
 
         [[nodiscard]] auto begin() { return m_symbols.begin(); }
 
@@ -36,7 +36,7 @@ namespace m_asm::symbols {
         friend std::ostream &operator<<(std::ostream &os, symtab_t const &table);
 
     private:
-        std::vector <symbol_t> m_symbols;
+        std::vector <symbol_t> m_symbols{};
     };
 
     std::ostream &operator<<(std::ostream &os, symtab_t const &table);
