@@ -20,20 +20,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33d1659d-8852-44eb-8d75-d6c2620ad82e" name="Changes" comment="Fixed small lint errors">
+    <list default="true" id="33d1659d-8852-44eb-8d75-d6c2620ad82e" name="Changes" comment="Code style changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/assembler/assembler.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/assembler.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/assembler/ast/stmt_t.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/ast/stmt_t.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/assembler/parser_driver.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/parser_driver.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/assembler/parser_objects.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/parser_objects.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/assembler/symbols/symtab_t.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/symbols/symtab_t.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/assembler/utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/utility.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/assembler/visitors/first_pass.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/visitors/first_pass.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/assembler/visitors/second_pass.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/visitors/second_pass.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/assembler/visitors/source_printer.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assembler/visitors/source_printer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assembler/assembler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/assembler/assembler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assembler/parser_driver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/assembler/parser_driver.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assembler/utility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/assembler/utility.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assembler/symbols/symtab_t.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/assembler/symbols/symtab_t.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assembler/visitors/first_pass.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/assembler/visitors/first_pass.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assembler/visitors/second_pass.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/assembler/visitors/second_pass.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +69,7 @@
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="c6352665-fc71-43a2-bade-0924bde420b9" />
+        <option name="accountId" value="154ff623-a37e-4375-a492-9c91af52f565" />
         <option name="url" value="https://github.com/lordofdestiny/ss-project.git" />
       </UrlAndAccount>
     </option>
@@ -356,7 +348,7 @@
       <workItem from="1706606329602" duration="7413000" />
       <workItem from="1706704187605" duration="206000" />
       <workItem from="1706704442885" duration="1850000" />
-      <workItem from="1706708472218" duration="3758000" />
+      <workItem from="1706708472218" duration="6525000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit, project setup">
       <option name="closed" value="true" />
@@ -507,7 +499,23 @@
       <option name="project" value="LOCAL" />
       <updated>1706709802938</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Code style changes">
+      <option name="closed" value="true" />
+      <created>1706712925976</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1706712925976</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Code style changes">
+      <option name="closed" value="true" />
+      <created>1706715704523</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1706715704523</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -562,7 +570,6 @@
     <MESSAGE value="Started implementing code compilation" />
     <MESSAGE value="Improved string literal parsing to be C-like, quotation marks are not part of the string literal anymore" />
     <MESSAGE value="Lot of unorganized changes soon to be scraped" />
-    <MESSAGE value="Code style changes" />
     <MESSAGE value="Implemented AST structures" />
     <MESSAGE value="Added value_getter wrapper for Visitors, that emables returing values when using visitor pattern" />
     <MESSAGE value="Fixed output for old assembler objects" />
@@ -572,7 +579,8 @@
     <MESSAGE value="Made up to date with project structure" />
     <MESSAGE value="Reimplemented most of the old functionality" />
     <MESSAGE value="Fixed small lint errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed small lint errors" />
+    <MESSAGE value="Code style changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code style changes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

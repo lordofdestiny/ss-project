@@ -4,9 +4,25 @@
 
 #include <ostream>
 #include <iomanip>
+#include <algorithm>
 #include "symbols/symtab_t.h"
 
 namespace m_asm::symbols {
+    auto symtab_t::find(std::string const &symbol_name) -> symbol_t * {
+        return const_cast<symbol_t *>(const_cast<const symtab_t *>(this)->find(symbol_name));
+    }
+
+    auto symtab_t::find(std::string const &symbol_name) const -> symbol_t const * {
+        const auto it = std::find_if(
+            begin(), end(),
+            [&](const auto &symbol) {
+                return symbol.name == symbol_name;
+            });
+        if(it == end()) {
+            return nullptr;
+        }
+        return &*it;
+    }
 
     std::ostream &operator<<(std::ostream &os, const symtab_t &table) {
         os << std::setw(4) << "id";

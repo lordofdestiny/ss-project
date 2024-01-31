@@ -17,13 +17,8 @@ namespace m_asm::visitor {
     void first_pass::visit_global(stmt_t::global_t &global) {
         auto symtab = assembler.get().get_symbol_table();
         for (const auto &symbol_name: global.symbols) {
-            if (auto symbol_it = std::find_if(
-                symtab.begin(), symtab.end(),
-                [&](auto const &symbol) {
-                    return symbol.name == symbol_name;
-                }
-            ); symbol_it != symtab.end()) {
-                symbol_it->local = 'g';
+            if (const auto symbol = symtab.find(symbol_name)) {
+                symbol->local = 'g';
             }
         }
     }
