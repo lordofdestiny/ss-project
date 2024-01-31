@@ -20,9 +20,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33d1659d-8852-44eb-8d75-d6c2620ad82e" name="Changes" comment="Renamed printer visitor to source_printer and moved it out of ast from m_asm::ast::visitor to m_asm::visitor namespace">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="33d1659d-8852-44eb-8d75-d6c2620ad82e" name="Changes" comment="Reimplemented most of the old functionality">
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assembler/symbols/symbol_t.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/assembler/symbols/symbol_t.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,8 +74,7 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file:///usr/include/c++/12/bits/char_traits.h" root0="SKIP_INSPECTION" />
-    <setting file="file:///usr/include/c++/12/bits/fs_path.h" root0="SKIP_INSPECTION" />
+    <setting file="file:////wsl.localhost/Ubuntu/usr/include/c++/11/bits/basic_string.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="Make.Settings">
     <option name="path" value="\\wsl$\Ubuntu\usr\bin\make" />
@@ -98,6 +99,11 @@
             </list>
           </value>
         </entry>
+      </map>
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
       </map>
     </option>
   </component>
@@ -128,6 +134,7 @@
     &quot;Makefile Target.emulator.executor&quot;: &quot;Run&quot;,
     &quot;Native Application.Assembler.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
@@ -137,13 +144,13 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/djumi/Desktop/ss-ale/src/assembler&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/djumi/Desktop/ss-ale&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;language.cpp.clang-tidy&quot;,
     &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -190,14 +197,19 @@
       <recent name="$PROJECT_DIR$/build" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\djumi\Desktop\ss-ale\include\assembler\visitors" />
+      <recent name="C:\Users\djumi\Desktop\ss-ale\src\assembler" />
+      <recent name="C:\Users\djumi\Desktop\ss-ale\src\assembler\symbols" />
+      <recent name="C:\Users\djumi\Desktop\ss-ale\src\assembler\symtab" />
       <recent name="C:\Users\djumi\Desktop\ss-ale\src\assembler\visitors" />
-      <recent name="C:\Users\djumi\Desktop\ss-project\src\assembler\visitors" />
-      <recent name="E:\Local Disk\Fakultet\6. semestar\SS\ss-project\src\assembler\ast" />
-      <recent name="C:\Users\djumi\Desktop\ss-project\src\assembler" />
-      <recent name="C:\Users\djumi\Desktop\ss-project\include\assembler" />
     </key>
   </component>
   <component name="RunManager" selected="Native Application.Assembler">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Assembler" type="CLionNativeAppRunConfigurationType" PROGRAM_PARAMS="../in.snazzle" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://./build" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ss-ale" TARGET_NAME="assembler" CONFIG_NAME="assembler" version="1" RUN_PATH="assembler">
       <method v="2">
         <option name="RunConfigurationTask" enabled="true" run_configuration_name="assembler" run_configuration_type="MAKEFILE_TARGET_RUN_CONFIGURATION" />
@@ -328,7 +340,12 @@
       <workItem from="1706437873734" duration="19092000" />
       <workItem from="1706475362093" duration="11854000" />
       <workItem from="1706487668198" duration="1471000" />
-      <workItem from="1706489155190" duration="137000" />
+      <workItem from="1706489155190" duration="3780000" />
+      <workItem from="1706601381035" duration="4762000" />
+      <workItem from="1706606329602" duration="7413000" />
+      <workItem from="1706704187605" duration="206000" />
+      <workItem from="1706704442885" duration="1850000" />
+      <workItem from="1706708472218" duration="1223000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit, project setup">
       <option name="closed" value="true" />
@@ -439,7 +456,31 @@
       <option name="project" value="LOCAL" />
       <updated>1706489268073</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Updated .gitignore to ignore lexer and parser generated sources">
+      <option name="closed" value="true" />
+      <created>1706489315221</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1706489315221</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Made up to date with project structure">
+      <option name="closed" value="true" />
+      <created>1706489332138</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1706489332138</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Reimplemented most of the old functionality">
+      <option name="closed" value="true" />
+      <created>1706709234094</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1706709234094</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -500,7 +541,10 @@
     <MESSAGE value="Fixed output for old assembler objects" />
     <MESSAGE value="touched up the Makefile" />
     <MESSAGE value="Renamed printer visitor to source_printer and moved it out of ast from m_asm::ast::visitor to m_asm::visitor namespace" />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed printer visitor to source_printer and moved it out of ast from m_asm::ast::visitor to m_asm::visitor namespace" />
+    <MESSAGE value="Updated .gitignore to ignore lexer and parser generated sources" />
+    <MESSAGE value="Made up to date with project structure" />
+    <MESSAGE value="Reimplemented most of the old functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reimplemented most of the old functionality" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

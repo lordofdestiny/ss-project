@@ -1,24 +1,23 @@
 //
-// Created by djumi on 1/29/2024.
+// Created by djumi on 1/31/2024.
 //
 
-#ifndef SS_ALE_FIRST_PASS_H
-#define SS_ALE_FIRST_PASS_H
+#ifndef SECOND_PASS_H
+#define SECOND_PASS_H
 
-#include "assembler.h"
+#include <functional>
 #include "ast/stmt_t.h"
+#include "assembler.h"
 
 namespace m_asm::visitor {
-    struct first_pass final : stmt_t::visitor_t {
-        explicit first_pass(const std::reference_wrapper<m_asm::assembler> assembler)
+    struct second_pass final: stmt_t::visitor_t {
+        explicit second_pass(const std::reference_wrapper<m_asm::assembler> assembler)
             : assembler(assembler) {
         }
 
         std::reference_wrapper<m_asm::assembler> assembler;
 
     private:
-        void visit_label(stmt_t::label_t &label) override;
-
         void visit_global(stmt_t::global_t &global) override;
 
         void visit_extern(stmt_t::extern_t &anExtern) override;
@@ -45,6 +44,6 @@ namespace m_asm::visitor {
 
         void visit_branch_instr(stmt_t::instr_t::branch_t &branch) override;
     };
-} // m_asm
+} // m_asm::visitors
 
-#endif //SS_ALE_FIRST_PASS_H
+#endif //SECOND_PASS_H

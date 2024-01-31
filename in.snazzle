@@ -45,17 +45,17 @@ mathDiv:
     ret
 
 hello: .word 0x11, mathDiv, -033
-.equ please, help
-.equ please, help - 0x11
-.equ please, - help + 0x11
-.equ please, + help - 0x11
-.equ please, -help + 0x11 - hello2
-.equ please, +help - 0x11 + hello
-.equ please, help - 0x11 - buffered
-.equ please, +help - 0x11 + + 012 + testiranje
-.equ please, +help - 0x11 + - 012 + testiranje
-.equ please, +help - 0x11 - + 012 + testiranje
-.equ please, +help - 0x11 -  -012 + testiranje
+# .equ please, help
+# .equ please, help - 0x11
+# .equ please, - help + 0x11
+# .equ please, + help - 0x11
+# .equ please, -help + 0x11 - hello2
+# .equ please, +help - 0x11 + hello
+# .equ please, help - 0x11 - buffered
+# .equ please, +help - 0x11 + + 012 + testiranje
+# .equ please, +help - 0x11 + - 012 + testiranje
+# .equ please, +help - 0x11 - + 012 + testiranje
+# .equ please, +help - 0x11 -  -012 + testiranje
 .word 0x11, mathDiv, -033
 
 ld $1, %r1

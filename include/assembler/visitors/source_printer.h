@@ -12,10 +12,11 @@
 #include "ast/stmt_t.h"
 
 namespace m_asm::visitor {
-    class source_printer : public m_asm::ast::stmt_t::visitor_t,
-                           public m_asm::ast::expr_t::visitor_t {
+    class source_printer final : public ast::stmt_t::visitor_t,
+                                 public ast::expr_t::visitor_t {
     protected:
         std::stringstream ss;
+
     public:
         source_printer() = default;
 
@@ -25,7 +26,7 @@ namespace m_asm::visitor {
 
         ~source_printer() override = default;
 
-        void accept(m_asm::parsed_file_t const &file) {
+        void visit(parsed_file_t const &file) {
             for (const auto &statement: file) {
                 statement->accept(*this);
                 ss << '\n';
@@ -79,7 +80,6 @@ namespace m_asm::visitor {
 
         void visit_sum(ast::expr_t::sum_t &sum) override;
     };
-
 }
 
 #endif //SS_PROJECT_PRINTER_H

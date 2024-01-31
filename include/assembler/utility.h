@@ -45,13 +45,13 @@ namespace utility {
     public:
         static TResult get_value(TVisited &visited) {
             TVisitor vis;
-            vis->accept(vis);
+            vis->visit(vis);
             return vis.value;
         }
 
         static TResult get_value(TVisited const &) {
             TVisitor vis;
-            vis->accept(vis);
+            vis->visit(vis);
             return vis.value;
         }
 
@@ -68,6 +68,7 @@ namespace utility {
     using str_vec_t = std::vector<std::string>;
 
     bool is_valid_literal(uint32_t literal);
+    std::string hex_to_string(uint32_t hex);
 }
 
 

@@ -33,7 +33,7 @@ namespace m_asm::visitor {
         ss << "SECTION " << section.name;
     }
 
-    void source_printer::print_word_arg(m_asm::ast::word_argument_t const &wordArg) {
+    void source_printer::print_word_arg(ast::word_argument_t const &wordArg) {
         std::visit([&](auto &&x) { ss << x; }, wordArg);
     }
 
@@ -46,9 +46,9 @@ namespace m_asm::visitor {
         print_word_arg(word.word_values.back());
     }
 
-    void source_printer::visit_equals(stmt_t::equals_t &stmt) {
+    void source_printer::visit_equals(ast::stmt_t::equals_t &equals) {
         ss << "EQU ";
-        stmt.expr->accept(*this);
+        equals.expr->accept(*this);
     }
 
     void source_printer::visit_skip(ast::stmt_t::skip_t &skip) {
@@ -84,7 +84,7 @@ namespace m_asm::visitor {
         ss << uncond.type << " " << uncond.operand;
     }
 
-    void source_printer::visit_branch_instr([[maybe_unused]]ast::stmt_t::instr_t::branch_t &branch) {
+    void source_printer::visit_branch_instr([[maybe_unused]] ast::stmt_t::instr_t::branch_t &branch) {
         ss << branch.type << " " << branch.reg1 << ", " << branch.reg2 << ", " << branch.operand;
     }
 
