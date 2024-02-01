@@ -129,7 +129,7 @@ namespace m_asm::ast {
     };
 
 
-    extern std::array<std::string, 26> instruction_names;
+    extern std::array<const char *, 26> instruction_names;
 
     std::ostream &operator<<(std::ostream &os, stmt_t::instr_t::mnemonic_t t);
 

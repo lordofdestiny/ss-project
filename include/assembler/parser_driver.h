@@ -33,7 +33,7 @@ namespace m_asm {
 
         static void trace_parsing(bool b);
 
-        m_asm::location location;
+        location loc;
 
     private:
         parse_result_t parsed_file{};

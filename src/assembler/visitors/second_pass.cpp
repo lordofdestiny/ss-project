@@ -8,7 +8,7 @@
 
 namespace m_asm::visitor {
     void second_pass::visit_global(stmt_t::global_t &global) {
-        auto symtab = assembler.get().get_symbol_table();
+        auto symtab = asm_ref.get().get_symbol_table();
         for (const auto &symbol_name: global.symbols) {
             if (const auto symbol = symtab.find(symbol_name); symbol == nullptr) {
                 throw std::logic_error("symbol " + symbol_name + " not found");
@@ -19,7 +19,7 @@ namespace m_asm::visitor {
     }
 
     void second_pass::visit_section(stmt_t::section_t &section) {
-        assembler.get().set_current_section(section.name);
+        asm_ref.get().set_current_section(section.name);
     }
 
     void second_pass::visit_word([[maybe_unused]] stmt_t::word_t &word) {
@@ -27,11 +27,11 @@ namespace m_asm::visitor {
     }
 
     void second_pass::visit_skip(stmt_t::skip_t &skip) {
-        assembler.get().write_zeros(skip.size);
+        asm_ref.get().write_zeros(skip.size);
     }
 
     void second_pass::visit_ascii( stmt_t::ascii_t &ascii) {
-        assembler.get().write_string(ascii.value);
+        asm_ref.get().write_string(ascii.value);
     }
 
     void second_pass::visit_equals([[maybe_unused]] stmt_t::equals_t &equals) {

@@ -39,7 +39,7 @@ register        %r([0-9]|1[0-5])
     std::vector<char> string_buff;
 
 %{
-    m_asm::location& loc = driver.location;
+    m_asm::location& loc = driver.loc;
     loc.step();
 %}
 

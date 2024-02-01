@@ -7,8 +7,8 @@
 
 #include <utility>
 
-#include "symbols/section_t.h"
-#include "symbols/symtab_t.h"
+#include "common/section_t.h"
+#include "common/symtab_t.h"
 #include "parser_driver.h"
 
 namespace m_asm {

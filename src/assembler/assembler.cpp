@@ -23,20 +23,21 @@ namespace m_asm {
     }
 
     void assembler::create_section(const std::string &name) {
-        if (const auto it =
-                    std::find_if(sections.begin(), sections.end(),
-                                 [&](auto const &section) -> bool {
-                                     return section.name == name;
-                                 });
+        if (const auto it = std::find_if(
+                sections.begin(), sections.end(),
+                [&](auto const &section) -> bool {
+                    return section.name == name;
+                });
             it != sections.end()) {
-            if (*it == sections.back()) {
-                throw section_exception("section already opened");
-            }
-            throw section_exception("cannot reopen closed section");
+            throw section_exception(*it == sections.back()
+                                        ? "section already opened"
+                                        : "cannot reopen closed section"
+            );
         }
         current_section = sections.size();
         sections.emplace_back(name);
-        symbol_table.emplace(name, current_section, 0, 'l', symbols::symbol_t::type_t::SECTION);
+        symbol_table.emplace(name, current_section, 0, 'l',
+                             symbols::symbol_t::type_t::SECTION);
     }
 
     void assembler::set_current_section(const std::string &name) {

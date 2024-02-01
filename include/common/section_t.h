@@ -9,7 +9,7 @@
 #include <vector>
 #include <string>
 
-#include "common/relocation_t.h"
+#include "relocation_t.h"
 
 namespace m_asm::symbols {
     struct section_t {

@@ -11,7 +11,7 @@ namespace fs = std::filesystem;
 namespace m_asm {
     auto parser_driver::parse(fs::path const &f) -> parse_result_t & {
         std::unique_ptr<FILE, std::decay_t<decltype(fclose)> > file(
-            std::fopen(fs::absolute(f).c_str(), "r"),
+            std::fopen(absolute(f).c_str(), "r"),
             std::fclose);
 
         if (!file) {
@@ -30,14 +30,14 @@ namespace m_asm {
             }
         } guard(file);
         std::string myf = f;
-        location.initialize(&myf);
+        loc.initialize(&myf);
         parser.set_debug_level(m_trace_parsing);
         parser.parse();
 
         if (std::holds_alternative<parse_error_t>(parsed_file)) {
             std::get<parse_error_t>(parsed_file).file = std::move(myf);
         }
-        location.initialize(nullptr);
+        loc.initialize(nullptr);
 
         return parsed_file;
     }

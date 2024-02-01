@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <cstring>
 #include <string>
-#include "../../include/common/util.h"
+#include "common/util.h"
 
 namespace common::util {
     bool is_valid_literal(const uint32_t literal) {

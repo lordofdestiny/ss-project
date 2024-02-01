@@ -7,7 +7,7 @@
 
 #include <vector>
 
-#include "symbols/symbol_t.h"
+#include "symbol_t.h"
 
 namespace m_asm::symbols {
     class symtab_t {

@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <string>
 
-#include "symbols/symbol_t.h"
+#include "common/symbol_t.h"
 #include "common/util.h"
 
 namespace m_asm::symbols {
