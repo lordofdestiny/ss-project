@@ -38,7 +38,7 @@
     using word_arg_t = m_asm::ast::word_argument_t;
     using word_args_t = m_asm::ast::word_arguments_t;
     using mnemonic_t = m_asm::ast::stmt_t::instr_t::mnemonic_t;
-    using utility::str_vec_t;
+    using common::util::str_vec_t;
 }
 
 %param {m_asm::parser_driver& driver}

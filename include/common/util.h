@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <vector>
 
-namespace utility {
+namespace common::util {
     /*
      * overloaded_t is a utility struct used
      * for creating overloaded handlers for std::visit

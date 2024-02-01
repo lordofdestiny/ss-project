@@ -11,7 +11,7 @@
 #include <ostream>
 #include <unordered_map>
 
-#include "utility.h"
+#include "common/util.h"
 #include "expr_t.h"
 
 namespace m_asm::ast {
@@ -247,7 +247,7 @@ namespace m_asm::ast {
 
     struct stmt_t::label_t final : stmt_t {
         template<typename T,
-            utility::enable_type_t<std::string, T>  = true>
+            common::util::enable_type_t<std::string, T>  = true>
         explicit label_t(T &&label): label(std::forward<T>(label)) {
         }
 
@@ -264,7 +264,7 @@ namespace m_asm::ast {
 
     struct stmt_t::global_t final : stmt_t {
         template<typename T,
-            utility::enable_type_t<utility::str_vec_t, T>  = true>
+            common::util::enable_type_t<common::util::str_vec_t, T>  = true>
         explicit global_t(T &&symbols) : symbols(std::forward<T>(symbols)) {
         }
 
@@ -281,7 +281,7 @@ namespace m_asm::ast {
 
     struct stmt_t::extern_t final : stmt_t {
         template<typename T,
-            utility::enable_type_t<utility::str_vec_t, T>  = true>
+            common::util::enable_type_t<common::util::str_vec_t, T>  = true>
         explicit extern_t(T &&symbols) : symbols(std::forward<T>(symbols)) {
         }
 
@@ -298,7 +298,7 @@ namespace m_asm::ast {
 
     struct stmt_t::section_t final : stmt_t {
         template<typename T,
-            utility::enable_type_t<std::string, T>  = true>
+            common::util::enable_type_t<std::string, T>  = true>
         explicit section_t(T &&name): name(std::forward<T>(name)) {
         }
 
@@ -315,7 +315,7 @@ namespace m_asm::ast {
 
     struct stmt_t::word_t final : stmt_t {
         template<typename T,
-            utility::enable_type_t<word_arguments_t, T>  = true>
+            common::util::enable_type_t<word_arguments_t, T>  = true>
         explicit word_t(T &&values) : word_values(std::forward<T>(values)) {
         }
 
@@ -347,7 +347,7 @@ namespace m_asm::ast {
 
     struct stmt_t::ascii_t final : stmt_t {
         template<typename T,
-            utility::enable_type_t<std::string, T>  = true>
+            common::util::enable_type_t<std::string, T>  = true>
         explicit ascii_t(T &&value): value(std::forward<T>(value)) {
         }
 
@@ -365,7 +365,7 @@ namespace m_asm::ast {
 
     struct stmt_t::equals_t final : stmt_t {
         template<typename T,
-            utility::enable_type_t<std::string, T>  = true>
+            common::util::enable_type_t<std::string, T>  = true>
         equals_t(T &&symbol, std::unique_ptr<expr_t> expr)
             : symbol(std::forward<T>(symbol)),
               expr(std::move(expr)) {
@@ -433,7 +433,7 @@ namespace m_asm::ast {
 
     struct stmt_t::instr_t::memory_t final : instr_t {
         template<typename T,
-            utility::enable_type_t<operand::operand_t, T>  = true>
+            common::util::enable_type_t<operand::operand_t, T>  = true>
         memory_t(const mnemonic_t type,
                  const operand::reg_t reg, T &&operand)
             : instr_t(type), reg(reg),
@@ -441,7 +441,7 @@ namespace m_asm::ast {
         }
 
         template<typename T,
-            utility::enable_type_t<operand::operand_t, T>  = true>
+            common::util::enable_type_t<operand::operand_t, T>  = true>
         memory_t(const mnemonic_t type, T &&operand,
                  const operand::reg_t reg)
             : instr_t(type), reg(reg),
@@ -462,7 +462,7 @@ namespace m_asm::ast {
 
     struct stmt_t::instr_t::uncond_t final : instr_t {
         template<typename T,
-            utility::enable_type_t<operand::operand_t, T>  = true>
+            common::util::enable_type_t<operand::operand_t, T>  = true>
         uncond_t(const mnemonic_t type, T &&operand)
             : instr_t(type), operand(std::forward<T>(operand)) {
         }
@@ -480,7 +480,7 @@ namespace m_asm::ast {
 
     struct stmt_t::instr_t::branch_t final : instr_t {
         template<typename T,
-            utility::enable_type_t<operand::operand_t, T>  = true>
+            common::util::enable_type_t<operand::operand_t, T>  = true>
         branch_t(const mnemonic_t type,
                  const int reg1, const int reg2,
                  T &&operand)

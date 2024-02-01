@@ -2,26 +2,36 @@
 // Created by djumi on 1/31/2024.
 //
 
+#include <exception>
 #include "visitors/second_pass.h"
 #include "ast/stmt_t.h"
 
 namespace m_asm::visitor {
-    void second_pass::visit_global([[maybe_unused]] stmt_t::global_t &global) {
+    void second_pass::visit_global(stmt_t::global_t &global) {
+        auto symtab = assembler.get().get_symbol_table();
+        for (const auto &symbol_name: global.symbols) {
+            if (const auto symbol = symtab.find(symbol_name); symbol == nullptr) {
+                throw std::logic_error("symbol " + symbol_name + " not found");
+            } else {
+                symbol->local = 'g';
+            }
+        }
     }
 
-    void second_pass::visit_extern([[maybe_unused]] stmt_t::extern_t &anExtern) {
-    }
-
-    void second_pass::visit_section([[maybe_unused]] stmt_t::section_t &section) {
+    void second_pass::visit_section(stmt_t::section_t &section) {
+        assembler.get().set_current_section(section.name);
     }
 
     void second_pass::visit_word([[maybe_unused]] stmt_t::word_t &word) {
+
     }
 
-    void second_pass::visit_skip([[maybe_unused]] stmt_t::skip_t &skip) {
+    void second_pass::visit_skip(stmt_t::skip_t &skip) {
+        assembler.get().write_zeros(skip.size);
     }
 
-    void second_pass::visit_ascii([[maybe_unused]] stmt_t::ascii_t &ascii) {
+    void second_pass::visit_ascii( stmt_t::ascii_t &ascii) {
+        assembler.get().write_string(ascii.value);
     }
 
     void second_pass::visit_equals([[maybe_unused]] stmt_t::equals_t &equals) {

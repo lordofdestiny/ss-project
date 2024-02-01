@@ -83,11 +83,11 @@ $(ASM_DIR)/$(LEXER_CC): $(MISC_DIR)/$(LEXER_SRC) | $(MISC_DIR)/$(PARSER_SRC)
 
 $(ASM_OBJ_DIR)/parser.o: $(ASM_DIR)/$(PARSER_CC) Makefile
 	@mkdir -p $(dir $@)
-	g++ -c ${CXXFLAGS} -Wno-unused-function -I $(ASM_INC) -o $@  $<
+	g++ -c ${CXXFLAGS} -Wno-unused-function -I $(ASM_INC) -I $(COMMON_INC) -o $@  $<
 
 $(ASM_OBJ_DIR)/lexer.o: $(ASM_DIR)/$(LEXER_CC) Makefile | $(ASM_DIR)/$(PARSER_CC)
 	@mkdir -p $(dir $@)
-	g++ -c ${CXXFLAGS} -Wno-unused-function -I $(ASM_INC) -o $@  $<
+	g++ -c ${CXXFLAGS} -Wno-unused-function -I $(ASM_INC) -I $(COMMON_INC) -o $@  $<
 
 $(ASM_OBJ_DIR)/%.o: $(ASM_DIR)/%.cpp $(COMMON_OBJ) Makefile
 	@mkdir -p $(dir $@)

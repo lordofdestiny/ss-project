@@ -5,9 +5,9 @@
 #include <cstdint>
 #include <cstring>
 #include <string>
-#include "utility.h"
+#include "../../include/common/util.h"
 
-namespace utility {
+namespace common::util {
     bool is_valid_literal(const uint32_t literal) {
         int32_t value;
         std::memcpy(&value, &literal, sizeof(int32_t));

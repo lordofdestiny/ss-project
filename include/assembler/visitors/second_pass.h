@@ -10,7 +10,7 @@
 #include "assembler.h"
 
 namespace m_asm::visitor {
-    struct second_pass final: ast::stmt_t::visitor_t {
+    struct second_pass final : ast::stmt_t::visitor_t {
         explicit second_pass(const std::reference_wrapper<m_asm::assembler> assembler)
             : assembler(assembler) {
         }
@@ -19,8 +19,6 @@ namespace m_asm::visitor {
 
     private:
         void visit_global(ast::stmt_t::global_t &global) override;
-
-        void visit_extern(ast::stmt_t::extern_t &anExtern) override;
 
         void visit_section(ast::stmt_t::section_t &section) override;
 

@@ -8,13 +8,13 @@
 #include <string>
 
 #include "symbols/symbol_t.h"
-#include "utility.h"
+#include "common/util.h"
 
 namespace m_asm::symbols {
 
     std::ostream &operator<<(std::ostream &os, symbol_t const &symbol) {
         using namespace std::string_literals;
-        using utility::hex_to_string;
+        using common::util::hex_to_string;
 
         os << std::setw(4) << std::dec << symbol.index;
         os << std::setw(7) << (symbol.type == symbol_t::type_t::SECTION ? "SCTN" : "NOTYPE");
