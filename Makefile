@@ -1,5 +1,6 @@
 
 BUILD_DIR := build
+COMMON_OBJ_DIR := $(BUILD_DIR)/obj/common
 ASM_OBJ_DIR := $(BUILD_DIR)/obj/assembler
 LNK_OBJ_DIR := $(BUILD_DIR)/obj/linker
 EMU_OBJ_DIR := $(BUILD_DIR)/obj/emulator
@@ -7,6 +8,7 @@ EMU_OBJ_DIR := $(BUILD_DIR)/obj/emulator
 DIR_LIBS := lib
 
 DIR_INC := include
+COMMON_INC := $(DIR_INC)
 ASM_INC := $(DIR_INC)/assembler
 LNK_INC := $(DIR_INC)/linker
 EMU_INC := $(DIR_INC)/emulator
@@ -33,11 +35,13 @@ PARSER_CC := $(addsuffix .cc, $(basename $(PARSER_SRC)))
 
 #source dirs
 SRC_DIR := src
+COMMON_DIR ::= $(SRC_DIR)/common
 ASM_DIR := $(SRC_DIR)/assembler
 LNK_DIR := $(SRC_DIR)/linker
 EMU_DIR := $(SRC_DIR)/emulator
 
 #source files
+COMMON_SRC = $(shell find ./$(COMMON_DIR) -name "*.cpp" -printf "%P\n")
 ASM_SRC = $(shell find ./$(ASM_DIR) -name "*.cpp" -printf "%P\n")
 LNK_SRC = $(shell find ./$(LNK_DIR) -name "*.cpp" -printf "%P\n")
 EMU_SRC = $(shell find ./$(EMU_DIR) -name "*.cpp" -printf "%P\n")
@@ -49,6 +53,9 @@ CXXFLAGS += -MMD -MP -MF"${@:%.o=%.d}"
 
 LDLIBS := --library-path . $(patsubst %,--library=:%,${LIBS})
 
+COMMON_OBJ = $(addprefix $(COMMON_OBJ_DIR)/, $(COMMON_SRC:.cpp=.o))
+vpath $(COMMON_SRC)/%.cpp $(sort $(dir $(COMMON_SRC)))
+
 ASM_OBJ = $(addprefix $(ASM_OBJ_DIR)/, $(ASM_SRC:.cpp=.o))
 vpath $(ASM_SRC)/%.cpp $(sort $(dir $(ASM_SRC)))
 
@@ -57,6 +64,12 @@ vpath $(LNK_SRC)/%.cpp $(sort $(dir $(LNK_SRC)))
 
 EMU_OBJ = $(addprefix $(EMU_OBJ_DIR)/, $(EMU_SRC:.cpp=.o))
 vpath $(EMU_SRC)/%.cpp $(sort $(dir $(EMU_SRC)))
+
+
+$(COMMON_OBJ_DIR)/%.o: $(COMMON_DIR)/%.cpp Makefile
+	@mkdir -p $(dir $@)
+	${CXX} -c ${CXXFLAGS} -I $(COMMON_INC) -o $@ $<
+
 
 $(ASM_DIR)/$(PARSER_CC): $(MISC_DIR)/$(PARSER_SRC)
 	@mkdir -p $(dir $@)
@@ -76,27 +89,27 @@ $(ASM_OBJ_DIR)/lexer.o: $(ASM_DIR)/$(LEXER_CC) Makefile | $(ASM_DIR)/$(PARSER_CC
 	@mkdir -p $(dir $@)
 	g++ -c ${CXXFLAGS} -Wno-unused-function -I $(ASM_INC) -o $@  $<
 
-$(ASM_OBJ_DIR)/%.o: $(ASM_DIR)/%.cpp Makefile
+$(ASM_OBJ_DIR)/%.o: $(ASM_DIR)/%.cpp $(COMMON_OBJ) Makefile
 	@mkdir -p $(dir $@)
-	${CXX} -c ${CXXFLAGS} -I $(ASM_INC) -o $@  $<
+	${CXX} -c ${CXXFLAGS} -I $(ASM_INC) -I $(COMMON_INC) -o $@ $<
 
-$(LNK_OBJ_DIR)/%.o: $(LNK_DIR)/%.cpp Makefile
+$(LNK_OBJ_DIR)/%.o: $(LNK_DIR)/%.cpp $(COMMON_OBJ) Makefile
 	@mkdir -p $(dir $@)
-	g++ -c $(CXXFLAGS) -I $(LNK_INC) $< -o $@
+	g++ -c $(CXXFLAGS) -I $(LNK_INC) -I $(COMMON_INC) -o $@ $<
 
-$(EMU_OBJ_DIR)/%.o: $(EMU_DIR)/%.cpp Makefile
+$(EMU_OBJ_DIR)/%.o: $(EMU_DIR)/%.cpp $(COMMON_OBJ) Makefile
 	@mkdir -p $(dir $@)
-	g++ -c $(CXXFLAGS) -I $(EMU_INC) $< -o $@
+	g++ -c $(CXXFLAGS) -I $(EMU_INC) -I $(COMMON_INC) -o $@ $<
 
-$(ASSEMBLER): $(MISC_OBJ) $(ASM_OBJ)
+$(ASSEMBLER): $(MISC_OBJ) $(ASM_OBJ) $(COMMON_OBJ)
 	@mkdir -p $(dir $@)
 	g++ $(CXXFLAGS) -I $(ASM_INC) -o $@ $^
 
-$(LINKER): $(LNK_OBJ)
+$(LINKER): $(LNK_OBJ) $(COMMON_OBJ)
 	@mkdir -p $(dir $@)
 	g++ $(CXXFLAGS) -I $(LNK_INC) -o $@ $^
 
-$(EMULATOR): $(EMU_OBJ)
+$(EMULATOR): $(EMU_OBJ) $(COMMON_OBJ)
 	@mkdir -p $(dir $@)
 	g++ $(CXXFLAGS) -I $(EMU_INC) -o $@ $^
 
@@ -114,6 +127,7 @@ clean:
 .PHONY: all assembler linker emulator clean
 .PRECIOUS: %.o
 
+-include $(COMMON_OBJ:.o=.d)
 -include $(ASM_OBJ:.o=.d)
 -include $(LNK_OBJ:.o=.d)
 -include $(EMU_OBJ:.o=.d)
