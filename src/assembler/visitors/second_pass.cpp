@@ -22,15 +22,40 @@ namespace m_asm::visitor {
         asm_ref.get().set_current_section(section.name);
     }
 
-    void second_pass::visit_word([[maybe_unused]] stmt_t::word_t &word) {
+    void second_pass::visit_word(stmt_t::word_t &word) {
+        for (const auto &value: word.word_values) {
+            if (const auto value_ptr = std::get_if<uint32_t>(&value)) {
+                asm_ref.get().write_word(*value_ptr);
+                continue;
+            }
 
+            // Else it holds a string - symbol name
+            const auto &symbol_name = std::get<std::string>(value);
+            const auto &symtab = asm_ref.get().get_symbol_table();
+            const auto symbol_it = std::find_if(
+                symtab.begin(), symtab.end(), [&](const auto &symbol) {
+                    return symbol.name == symbol_name;
+                });
+            if (symbol_it == symtab.end()) {
+                throw std::logic_error("symbol '" + symbol_name + "' does not exit");
+            }
+            asm_ref.get().add_relocation(
+                asm_ref.get().get_section_position() + 4,
+                symbol_it->local
+                    ? symbol_it->section_index
+                    : std::distance(symtab.begin(), symbol_it),
+                symbol_it->local ? symbol_it->value : 0
+            );
+
+            asm_ref.get().write_word(0);
+        }
     }
 
     void second_pass::visit_skip(stmt_t::skip_t &skip) {
         asm_ref.get().write_zeros(skip.size);
     }
 
-    void second_pass::visit_ascii( stmt_t::ascii_t &ascii) {
+    void second_pass::visit_ascii(stmt_t::ascii_t &ascii) {
         asm_ref.get().write_string(ascii.value);
     }
 

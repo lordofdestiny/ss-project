@@ -13,6 +13,11 @@ namespace m_asm {
         for (const auto &stmt: statements.get()) {
             stmt->accept(fpv);
         }
+#ifdef DEBUG_PRINT
+        for (const auto &section: sections) {
+            std::cout << section << '\n';
+        }
+#endif
     }
 
     void assembler::second_pass() {
@@ -20,6 +25,11 @@ namespace m_asm {
         for (const auto &stmt: statements.get()) {
             stmt->accept(spv);
         }
+#ifdef DEBUG_PRINT
+        for (const auto &section: sections) {
+            std::cout << section << '\n';
+        }
+#endif
     }
 
     void assembler::create_section(const std::string &name) {

@@ -59,23 +59,16 @@ namespace m_asm {
             sections[current_section].size += size;
         }
 
-        void write_byte_impl(const uint8_t byte) {
+        void write_byte(const uint8_t byte) {
             sections[current_section].data.push_back(byte);
         }
 
-        void write_byte(const uint8_t byte) {
-            increment_section_size(1);
-            write_byte_impl(byte);
-        }
-
         void write_zeros(const uint32_t count) {
-            increment_section_size(count);
             sections[current_section].data.insert(
                 sections[current_section].data.end(), count, 0);
         }
 
         void write_string(std::string const &string) {
-            increment_section_size(string.size() + 1);
             sections[current_section].data.insert(
                 sections[current_section].data.end(),
                 string.begin(), string.end());
@@ -83,12 +76,10 @@ namespace m_asm {
         }
 
         void write_word(const uint32_t word) {
-            sections[current_section].size += 4;
-            increment_section_size(4);
-            write_byte_impl(word & 0xFF);
-            write_byte_impl((word >> 8) & 0xFF);
-            write_byte_impl((word >> 16) & 0xFF);
-            write_byte_impl((word >> 24) & 0xFF);
+            write_byte(word & 0xFF);
+            write_byte((word >> 8) & 0xFF);
+            write_byte((word >> 16) & 0xFF);
+            write_byte((word >> 24) & 0xFF);
         }
 
         void add_relocation(uint64_t offset, uint64_t symbol_index, uint64_t addend) {

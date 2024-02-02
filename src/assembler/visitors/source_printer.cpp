@@ -32,7 +32,7 @@ namespace m_asm::visitor {
         ss << "SECTION " << section.name;
     }
 
-    void source_printer::print_word_arg(ast::word_argument_t const &wordArg) {
+    void source_printer::print_word_arg(common::word_argument_t const &wordArg) {
         std::visit([&](auto &&x) { ss << x; }, wordArg);
     }
 

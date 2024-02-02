@@ -28,7 +28,11 @@ namespace m_asm::symbols {
         bool operator==(section_t const &other) const;
 
         bool operator!=(section_t const &other) const;
+
+        friend std::ostream &operator<<(std::ostream &os, const section_t &section);
     };
+
+    std::ostream &operator<<(std::ostream &os, const section_t &section);
 } // m_asm::symbols
 
 #endif //SECTION_T_H

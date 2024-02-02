@@ -25,6 +25,7 @@
     #include <optional>
     #include "parser_objects.h"
     #include "ast/stmt_t.h"
+    #include "common/operand.h"
 
     namespace m_asm{
         class parser_driver;
@@ -33,10 +34,10 @@
     using m_asm::ast::stmt_t;
     using instr_t = m_asm::ast::stmt_t::instr_t;
     using m_asm::ast::expr_t;
-    using namespace m_asm::ast::operand;
-    using op_type_t = m_asm::ast::operand::operand_t::type_t;
-    using word_arg_t = m_asm::ast::word_argument_t;
-    using word_args_t = m_asm::ast::word_arguments_t;
+    using namespace common::operand;
+    using op_type_t = common::operand::operand_t::type_t;
+    using word_arg_t = common::word_argument_t;
+    using word_args_t = common::word_arguments_t;
     using mnemonic_t = m_asm::ast::stmt_t::instr_t::mnemonic_t;
     using common::util::str_vec_t;
 }

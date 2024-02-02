@@ -8,7 +8,9 @@
 #include <iostream>
 #include <sstream>
 
+
 #include "parser_driver.h"
+#include "common/operand.h"
 #include "ast/stmt_t.h"
 
 namespace m_asm::visitor {
@@ -42,7 +44,7 @@ namespace m_asm::visitor {
         }
 
     private:
-        void print_word_arg(ast::word_argument_t const &wordArg);
+        void print_word_arg(common::word_argument_t const &wordArg);
 
         void visit_label(stmt_t::label_t &label) override;
 

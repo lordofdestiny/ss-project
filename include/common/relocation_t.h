@@ -13,7 +13,7 @@ namespace common {
         uint64_t symbol;
         uint64_t addend;
 
-        relocation_t(const uint64_t offset, const uint64_t symbol, const uint64_t addend)
+        relocation_t(const uint64_t offset, const uint64_t symbol = 0, const uint64_t addend = 0)
             : offset(offset), symbol(symbol), addend(addend) {
         }
 

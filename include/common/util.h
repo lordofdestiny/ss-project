@@ -17,7 +17,7 @@ namespace common::util {
      * for creating overloaded handlers for std::visit
      * */
     template<class... Ts>
-    struct overloaded_t : Ts ... {
+    struct overloaded_t : Ts... {
         using Ts::operator()...;
     };
     template<typename... Ts>
@@ -29,38 +29,8 @@ namespace common::util {
      * */
     template<typename T, typename U>
     using enable_type_t = std::enable_if_t<
-            std::is_same_v<T, std::remove_cv_t<std::remove_reference_t<U>>
-            >, bool>;
-
-
-    /*
-     * Helper type for wrapping visitors ( Visitor pattern)
-     * That enables returning values from the visited instances
-     * */
-    template<typename TVisitor, typename TVisited, typename TResult>
-    class value_getter {
-    public:
-        static TResult get_value(TVisited &visited) {
-            TVisitor vis;
-            vis->visit(vis);
-            return vis.value;
-        }
-
-        static TResult get_value(TVisited const &) {
-            TVisitor vis;
-            vis->visit(vis);
-            return vis.value;
-        }
-
-        template<typename T,
-                enable_type_t<TResult, T> = true>
-        void return_value(T &&value_) {
-            value = std::forward<T>(value_);
-        }
-
-    private:
-        TResult value;
-    };
+        std::is_same_v<T, std::remove_cv_t<std::remove_reference_t<U> >
+        >, bool>;
 
     using str_vec_t = std::vector<std::string>;
 

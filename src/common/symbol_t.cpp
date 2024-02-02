@@ -23,6 +23,6 @@ namespace m_asm::symbols {
         os << std::hex << std::setw(10) << hex_to_string(symbol.value);
         os << "  " << symbol.local << "  ";
         os << (symbol.name.empty() ? "*UND*"s : symbol.name);
-        return os;
+        return os << std::dec;
     }
 }

@@ -6,6 +6,7 @@
 #include "parser_driver.h"
 #include "visitors/source_printer.h"
 #include "assembler.h"
+#include "common/instruction_t.h"
 
 enum asm_result_t {
     OK,
