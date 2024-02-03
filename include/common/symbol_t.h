@@ -10,7 +10,7 @@
 #include <variant>
 #include <cstdint>
 
-namespace m_asm::symbols {
+namespace common::symbol {
     struct symbol_t {
         enum class type_t {
             SECTION, NOTYPE

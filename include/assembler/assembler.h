@@ -41,11 +41,11 @@ namespace m_asm {
             symbol_table.emplace(std::forward<T>(symbol)...);
         }
 
-        [[nodiscard]] symbols::section_t &current_section() {
+        [[nodiscard]] common::symbol::section_t &current_section() {
             return sections[curr_section];
         }
 
-        [[nodiscard]] symbols::section_t const &current_section() const {
+        [[nodiscard]] common::symbol::section_t const &current_section() const {
             return sections[curr_section];
         }
 
@@ -96,10 +96,10 @@ namespace m_asm {
     private:
         std::reference_wrapper<parsed_file_t> statements;
         uint32_t curr_section = 0;
-        std::vector<symbols::section_t> sections{
-            symbols::section_t{""}
+        std::vector<common::symbol::section_t> sections{
+            common::symbol::section_t{""}
         };
-        symbols::symtab_t symbol_table{
+        common::symbol::symtab_t symbol_table{
             {"", 0, 0, false, 'l'}
         };
     };

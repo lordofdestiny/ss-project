@@ -10,11 +10,11 @@
 #include "common/symbol_t.h"
 #include "common/util.h"
 
-namespace m_asm::symbols {
+namespace common::symbol {
 
     std::ostream &operator<<(std::ostream &os, symbol_t const &symbol) {
         using namespace std::string_literals;
-        using common::util::hex_to_string;
+        using util::hex_to_string;
 
         os << std::setw(4) << std::dec << symbol.index;
         os << std::setw(7) << (symbol.type == symbol_t::type_t::SECTION ? "SCTN" : "NOTYPE");

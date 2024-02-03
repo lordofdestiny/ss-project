@@ -7,7 +7,7 @@
 #include <algorithm>
 #include "common/symtab_t.h"
 
-namespace m_asm::symbols {
+namespace common::symbol {
     auto symtab_t::find(std::string const &symbol_name) -> symbol_t * {
         return const_cast<symbol_t *>(const_cast<const symtab_t *>(this)->find(symbol_name));
     }

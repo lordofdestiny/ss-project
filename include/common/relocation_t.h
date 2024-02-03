@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <ostream>
 
-namespace common {
+namespace common::symbol {
     struct relocation_t {
         uint64_t offset;
         uint64_t symbol;

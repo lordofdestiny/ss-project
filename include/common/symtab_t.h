@@ -9,7 +9,7 @@
 
 #include "symbol_t.h"
 
-namespace m_asm::symbols {
+namespace common::symbol {
     class symtab_t {
     public:
         symtab_t() = default;

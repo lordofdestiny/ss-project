@@ -8,7 +8,7 @@
 
 #include "common/util.h"
 
-namespace m_asm::symbols {
+namespace common::symbol {
     bool section_t::operator==(const section_t &other) const {
         return name == other.name;
     }

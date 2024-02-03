@@ -7,7 +7,7 @@
 #include "common/relocation_t.h"
 #include "common/util.h"
 
-namespace common {
+namespace common::symbol {
     std::ostream &operator<<(std::ostream &os, relocation_t const &reloc) {
         using util::hex_to_string;
         auto &&[offset, symbol, addend] = reloc;

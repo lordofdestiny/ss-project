@@ -11,13 +11,13 @@
 
 #include "relocation_t.h"
 
-namespace m_asm::symbols {
+namespace common::symbol {
     struct section_t {
         uint32_t index = s_index++;
         std::string name;
         uint32_t size = 0;
         std::vector<uint8_t> data;
-        std::vector<common::relocation_t> relocations;
+        std::vector<relocation_t> relocations;
 
         explicit section_t(std::string name)
             : name(std::move(name)) {
