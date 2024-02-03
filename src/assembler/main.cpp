@@ -7,6 +7,7 @@
 #include "visitors/source_printer.h"
 #include "assembler.h"
 #include "common/instruction_t.h"
+#include "common/util.h"
 
 enum asm_result_t {
     OK,
@@ -34,7 +35,6 @@ int main(const int argc, char **argv) {
     // parser_driver::trace_scanning(false);
     // parser_driver::trace_parsing(false);
     parser_driver driver;
-
     auto &result = driver.parse(ifile);
 
     if (const auto *p_val = std::get_if<parse_error_t>(&result)) {
@@ -47,10 +47,15 @@ int main(const int argc, char **argv) {
     m_asm::visitor::source_printer printer;
     printer.visit(parsed_src);
 
+#ifdef DEBUG_PRINT
     std::cout << printer.to_string();
+#endif
+
     m_asm::assembler assembler(std::ref(parsed_src));
     assembler.first_pass();
+#ifdef DEBUG_PRINT
     std::cout << assembler.get_symbol_table();
+#endif
     assembler.second_pass();
 
     return OK;

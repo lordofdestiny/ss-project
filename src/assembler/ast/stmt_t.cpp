@@ -3,6 +3,7 @@
 //
 
 #include "ast/stmt_t.h"
+#include "visitors/source_printer.h"
 
 namespace m_asm::ast {
     stmt_t::visitor_t::~visitor_t() {
@@ -25,5 +26,11 @@ namespace m_asm::ast {
 
     std::ostream &operator<<(std::ostream &os, stmt_t::instr_t::mnemonic_t t) {
         return os << instruction_names[static_cast<int>(t)];
+    }
+
+    std::ostream &operator<<(std::ostream &os, stmt_t const &stmt) {
+        visitor::source_printer printer;
+        printer.visit(const_cast<stmt_t &>(stmt));
+        return os << printer.to_string();
     }
 } // ast

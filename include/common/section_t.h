@@ -16,7 +16,7 @@ namespace m_asm::symbols {
         uint32_t index = s_index++;
         std::string name;
         uint32_t size = 0;
-        std::vector<uint32_t> data;
+        std::vector<uint8_t> data;
         std::vector<common::relocation_t> relocations;
 
         explicit section_t(std::string name)

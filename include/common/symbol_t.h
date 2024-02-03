@@ -22,13 +22,15 @@ namespace m_asm::symbols {
         type_t type;
         uint32_t value;
         char local;
-        bool is_equ = false;
+        bool is_equ;
+        bool has_value;
 
-        symbol_t(std::string name, const uint32_t section_index,const uint32_t value,
-                const char local = ' ', const type_t type = type_t::NOTYPE,const bool is_equ = false)
-                : name(std::move(name)), section_index(section_index), type(type),
-                  value(value), local(local), is_equ(is_equ) {}
-
+        symbol_t(std::string name, const uint32_t section_index, const uint32_t value,
+                 const bool has_value = false, const char local = ' ',
+                 const type_t type = type_t::NOTYPE, const bool is_equ = false)
+            : name(std::move(name)), section_index(section_index), type(type),
+              value(value), local(local), is_equ(is_equ), has_value(has_value) {
+        }
 
         friend std::ostream &operator<<(std::ostream &os, symbol_t const &symbol);
 

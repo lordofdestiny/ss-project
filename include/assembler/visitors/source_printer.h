@@ -30,9 +30,13 @@ namespace m_asm::visitor {
 
         void visit(parsed_file_t const &file) {
             for (const auto &statement: file) {
-                statement->accept(*this);
+                visit(*statement);
                 ss << '\n';
             }
+        }
+
+        void visit(stmt_t &stmt) {
+            stmt.accept(*this);
         }
 
         void clear() {

@@ -9,10 +9,9 @@
 
 namespace common::util {
     bool is_valid_literal(const uint32_t literal) {
-        int32_t value;
-        std::memcpy(&value, &literal, sizeof(int32_t));
         constexpr int32_t min = -(1 << 12);
         constexpr int32_t max = (1 << 12) - 1;
+        const auto value = static_cast<int32_t>(literal);
         return min <= value && value <= max;
     }
 

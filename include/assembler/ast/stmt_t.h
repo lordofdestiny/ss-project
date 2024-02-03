@@ -44,6 +44,8 @@ namespace m_asm::ast {
         virtual void accept(visitor_t const &visitor) = 0;
     };
 
+    std::ostream &operator<<(std::ostream &os, stmt_t const &stmt);
+
     struct stmt_t::instr_t : stmt_t {
         enum class mnemonic_t {
             HALT,

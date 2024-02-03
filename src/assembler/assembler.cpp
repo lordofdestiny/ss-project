@@ -27,7 +27,7 @@ namespace m_asm {
         }
 #ifdef DEBUG_PRINT
         for (const auto &section: sections) {
-            std::cout << section << '\n';
+            std::cout << section;
         }
 #endif
     }
@@ -44,9 +44,9 @@ namespace m_asm {
                                         : "cannot reopen closed section"
             );
         }
-        current_section = sections.size();
+        curr_section = sections.size();
         sections.emplace_back(name);
-        symbol_table.emplace(name, current_section, 0, 'l',
+        symbol_table.emplace(name, curr_section, 0, false, 'l',
                              symbols::symbol_t::type_t::SECTION);
     }
 
@@ -59,6 +59,6 @@ namespace m_asm {
         if (it == sections.end()) {
             throw section_exception("section does not exist");
         }
-        current_section = std::distance(sections.begin(), it);
+        curr_section = std::distance(sections.begin(), it);
     }
 } // m_asm

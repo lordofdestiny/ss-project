@@ -79,26 +79,26 @@ beq                 return parser::make_INST_COND_JUMP(mnemonic_t::BEQ, loc);
 bne                 return parser::make_INST_COND_JUMP(mnemonic_t::BNE, loc);
 bgt                 return parser::make_INST_COND_JUMP(mnemonic_t::BGT, loc);
 
-push                return parser::make_INST_ONE_PARAM(mnemonic_t::PUSH, loc);
-pop                 return parser::make_INST_ONE_PARAM(mnemonic_t::POP, loc);
+push                return parser::make_INST_UNARY(mnemonic_t::PUSH, loc);
+pop                 return parser::make_INST_UNARY(mnemonic_t::POP, loc);
 
-add                 return parser::make_INST_TWO_PARAMS(mnemonic_t::ADD, loc);
-sub                 return parser::make_INST_TWO_PARAMS(mnemonic_t::SUB, loc);
-mul                 return parser::make_INST_TWO_PARAMS(mnemonic_t::MUL, loc);
-div                 return parser::make_INST_TWO_PARAMS(mnemonic_t::DIV, loc);
+add                 return parser::make_INST_BINARY(mnemonic_t::ADD, loc);
+sub                 return parser::make_INST_BINARY(mnemonic_t::SUB, loc);
+mul                 return parser::make_INST_BINARY(mnemonic_t::MUL, loc);
+div                 return parser::make_INST_BINARY(mnemonic_t::DIV, loc);
 
-not                 return parser::make_INST_ONE_PARAM(mnemonic_t::NOT, loc);
-and                 return parser::make_INST_TWO_PARAMS(mnemonic_t::AND, loc);
-or                  return parser::make_INST_TWO_PARAMS(mnemonic_t::OR, loc);
-xor                 return parser::make_INST_TWO_PARAMS(mnemonic_t::XOR, loc);
+not                 return parser::make_INST_UNARY(mnemonic_t::NOT, loc);
+and                 return parser::make_INST_BINARY(mnemonic_t::AND, loc);
+or                  return parser::make_INST_BINARY(mnemonic_t::OR, loc);
+xor                 return parser::make_INST_BINARY(mnemonic_t::XOR, loc);
 
-shl                 return parser::make_INST_TWO_PARAMS(mnemonic_t::SHL, loc);
-shr                 return parser::make_INST_TWO_PARAMS(mnemonic_t::SHR, loc);
+shl                 return parser::make_INST_BINARY(mnemonic_t::SHL, loc);
+shr                 return parser::make_INST_BINARY(mnemonic_t::SHR, loc);
 
 ld                  return parser::make_INST_LD(mnemonic_t::LD, loc);
 st                  return parser::make_INST_ST(mnemonic_t::ST, loc);
 
-xchg                return parser::make_INST_TWO_PARAMS(mnemonic_t::XCHG, loc);
+xchg                return parser::make_INST_BINARY(mnemonic_t::XCHG, loc);
 csrrd               return parser::make_INST_CSRRD(mnemonic_t::CSRRD, loc);
 csrwr               return parser::make_INST_CSRWR(mnemonic_t::CSRWR, loc);
 

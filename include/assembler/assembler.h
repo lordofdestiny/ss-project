@@ -13,7 +13,8 @@
 
 namespace m_asm {
     struct section_exception final : std::runtime_error {
-        explicit section_exception(const char *msg) : std::runtime_error(msg) {
+        explicit section_exception(const char *msg)
+            : std::runtime_error(msg) {
         }
     };
 
@@ -34,45 +35,45 @@ namespace m_asm {
 
         template<typename... T>
         void add_symbol(const bool check, T &&... symbol) {
-            if (check && current_section == 0) {
+            if (check && curr_section == 0) {
                 throw section_exception("no section opened");
             }
             symbol_table.emplace(std::forward<T>(symbol)...);
         }
 
-        [[nodiscard]] uint32_t get_current_section() const {
-            return current_section;
+        [[nodiscard]] symbols::section_t &current_section() {
+            return sections[curr_section];
+        }
+
+        [[nodiscard]] symbols::section_t const &current_section() const {
+            return sections[curr_section];
         }
 
         void create_section(const std::string &name);
 
         void set_current_section(const std::string &name);
 
-        [[nodiscard]] uint32_t get_section_position() const {
-            return sections[current_section].size;
-        }
-
         void increment_section_size(const uint32_t size) {
-            if (current_section == 0) {
+            if (curr_section == 0) {
                 throw section_exception("no section opened");
             }
-            sections[current_section].size += size;
+            sections[curr_section].size += size;
         }
 
         void write_byte(const uint8_t byte) {
-            sections[current_section].data.push_back(byte);
+            sections[curr_section].data.push_back(byte);
         }
 
         void write_zeros(const uint32_t count) {
-            sections[current_section].data.insert(
-                sections[current_section].data.end(), count, 0);
+            sections[curr_section].data.insert(
+                sections[curr_section].data.end(), count, 0);
         }
 
         void write_string(std::string const &string) {
-            sections[current_section].data.insert(
-                sections[current_section].data.end(),
+            sections[curr_section].data.insert(
+                sections[curr_section].data.end(),
                 string.begin(), string.end());
-            sections[current_section].data.push_back(0);
+            sections[curr_section].data.push_back(0);
         }
 
         void write_word(const uint32_t word) {
@@ -83,7 +84,9 @@ namespace m_asm {
         }
 
         void add_relocation(uint64_t offset, uint64_t symbol_index, uint64_t addend) {
-            sections[current_section].relocations.emplace_back(offset, symbol_index, addend);
+            sections[curr_section]
+                    .relocations
+                    .emplace_back(offset, symbol_index, addend);
         }
 
         void first_pass();
@@ -92,12 +95,12 @@ namespace m_asm {
 
     private:
         std::reference_wrapper<parsed_file_t> statements;
-        uint32_t current_section = 0;
+        uint32_t curr_section = 0;
         std::vector<symbols::section_t> sections{
             symbols::section_t{""}
         };
         symbols::symtab_t symbol_table{
-            {"", 0, 0, 'l'}
+            {"", 0, 0, false, 'l'}
         };
     };
 } // m_asm

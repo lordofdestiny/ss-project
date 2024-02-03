@@ -6,10 +6,10 @@
 #define OPERAND_H
 
 #include <cstdint>
-#include <ostream>
 #include <variant>
 #include <vector>
 #include <tuple>
+#include <ostream>
 
 namespace common {
     namespace operand {
@@ -28,6 +28,12 @@ namespace common {
             }
 
             friend std::ostream &operator<<(std::ostream &os, reg_t reg);
+
+            static reg_t sp;
+            static reg_t pc;
+            static reg_t status;
+            static reg_t handler;
+            static reg_t cause;
 
             uint8_t value;
             bool is_csr;

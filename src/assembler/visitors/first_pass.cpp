@@ -10,8 +10,8 @@
 namespace m_asm::visitor {
     void first_pass::visit_label(stmt_t::label_t &label) {
         asm_ref.get().add_symbol(
-            true, label.label, asm_ref.get().get_current_section(),
-            asm_ref.get().get_sections().back().size, 'l');
+            true, label.label, asm_ref.get().current_section().index,
+            true, asm_ref.get().get_sections().back().size, 'l');
     }
 
     void first_pass::visit_global(stmt_t::global_t &global) {
@@ -25,7 +25,7 @@ namespace m_asm::visitor {
 
     void first_pass::visit_extern(stmt_t::extern_t &anExtern) {
         for (const auto &symbol: anExtern.symbols) {
-            asm_ref.get().add_symbol(false, symbol, 0, 0, 'g');
+            asm_ref.get().add_symbol(false, symbol, 0, 0, 'g', false);
         }
     }
 
@@ -50,10 +50,10 @@ namespace m_asm::visitor {
     }
 
     void first_pass::visit_paramless_instr(stmt_t::instr_t::paramless_t &paramless) {
-        if (paramless.type != mnemonic_t::IRET) {
-            asm_ref.get().increment_section_size(4);
-        } else {
+        if (paramless.type == mnemonic_t::IRET) {
             asm_ref.get().increment_section_size(8);
+        } else {
+            asm_ref.get().increment_section_size(4);
         }
     }
 
@@ -76,11 +76,11 @@ namespace m_asm::visitor {
                 break;
             case operand_t::type_t::LITERAL_VALUE:
             case operand_t::type_t::SYMBOL_VALUE:
-                asm_ref.get().increment_section_size(8);
+                asm_ref.get().increment_section_size(12);
                 break;
             case operand_t::type_t::LITERAL_ADDR:
             case operand_t::type_t::SYMBOL_ADDR:
-                asm_ref.get().increment_section_size(12);
+                asm_ref.get().increment_section_size(16);
                 break;
             }
             return;

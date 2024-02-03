@@ -6,10 +6,16 @@
 #include <variant>
 #include <tuple>
 
-#include "common/operand.h"
-// #include "../../include/common/operand.h"
+// #include "common/operand.h"
+#include "../../include/common/operand.h"
 
 namespace common::operand {
+    reg_t reg_t::sp = 14;
+    reg_t reg_t::pc = 15;
+    reg_t reg_t::status = 0;
+    reg_t reg_t::handler = 1;
+    reg_t reg_t::cause = 2;
+
     std::ostream &operator<<(std::ostream &os, const reg_t reg) {
         if (reg.is_csr) {
             switch (reg) {

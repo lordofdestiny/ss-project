@@ -9,7 +9,7 @@
 #include <type_traits>
 
 #include "operand.h"
-#include "util.h"
+#include "common/operand.h"
 
 namespace common {
     struct instruction_t {
@@ -26,14 +26,14 @@ namespace common {
         };
 
         enum class jump_mode : uint8_t {
-            REG_IND_DISP = 0,
-            EQ_REG_IND_DISP = 1,
-            NE_REG_IND_DISP = 2,
-            GT_REG_IND_DISP = 3,
-            MEM_DISP_DIR = 4,
-            EQ_MEM_DISP_DIR = 5,
-            NE_MEM_DISP_DIR = 6,
-            GT_MEM_DISP_DIR = 7
+            REG_DIR_DISP = 0,
+            EQ_REG_DIR_DISP = 1,
+            NE_REG_DIR_DISP = 2,
+            GT_REG_DIR_DISP = 3,
+            REG_IND_DISP = 8,
+            EQ_REG_IND_DISP = 9,
+            NE_REG_IND_DISP = 10,
+            GT_REG_IND_DISP = 11
         };
 
         enum class arithmetic_mode : uint8_t {
@@ -56,15 +56,15 @@ namespace common {
         };
 
         enum class store_mode : uint8_t {
-            MEM_DISP_DIR = 0,
-            REG_IND_PREINC = 2,
-            MEM_DISP_IND = 1,
+            REG_DISP_IND = 0,
+            MEM_REG_DISP_IND = 2,
+            REG_IND_PREINC = 1,
         };
 
         enum class load_mode : uint8_t {
             READ_CSR = 0,
             REG_MOVE_INC = 1,
-            REG_DISP_IND_DISP = 2,
+            REG_DISP_IND = 2,
             REG_DISP_IND_POSTINC = 3,
             WRITE_CSR = 4,
             WRITE_CSR_MOVE_OR = 5,
@@ -118,7 +118,7 @@ namespace common {
                                        int16_t disp);
 
         [[nodiscard]] uint32_t to_word() const {
-            return (code << 28) | (mode << 24) | (reg1 << 20) | (reg2 << 16) | (reg3 << 12) | disp;
+            return (code << 28) | (mode << 24) | (reg1 << 20) | (reg2 << 16) | (reg3 << 12) | (disp & 0xFFF);
         }
 
         [[nodiscard]] static uint32_t to_negative_12_bit(const uint32_t value) {

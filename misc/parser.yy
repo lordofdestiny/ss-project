@@ -88,11 +88,11 @@
 %token <mnemonic_t> INST_NO_PARAMS
 
 %token INST_PUSH INST_POP INST_NOT
-%token <mnemonic_t> INST_ONE_PARAM
+%token <mnemonic_t> INST_UNARY
 
 %token INST_XCHG INST_ADD INST_SUB INST_MUL INST_DIV
 %token INST_AND INST_OR INST_XOR INST_SHL INST_SHR
-%token <mnemonic_t> INST_TWO_PARAMS
+%token <mnemonic_t> INST_BINARY
 
 %token <mnemonic_t> INST_LD
 %token <mnemonic_t> INST_ST
@@ -303,12 +303,12 @@ instruction:
                 $1, $2, $4, std::move($6)
             );
     }
-    | INST_ONE_PARAM REG {
+    | INST_UNARY REG {
         $$ = std::make_unique<instr_t::unary_t>(
                 $1, $2
             );
     }
-    | INST_TWO_PARAMS REG "," REG {
+    | INST_BINARY REG "," REG {
        $$ = std::make_unique<instr_t::binary_t>(
                 $1, $2, $4
             );

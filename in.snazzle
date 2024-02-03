@@ -4,11 +4,12 @@
 .extern ilovestuff
 
 .section math
-.skip 010
+.skip 8
 mathAdd:
     push %r2
-    ld [%sp + 0x08], %r1
-    ld [%sp - 0x0C], %r2
+    ld $44, %r3
+    ld [%sp + 8], %r1
+    ld [%sp + 12], %r2
     add %r2, %r1 # r1 used for the result
     pop %r2
     bgt %r1, %r2, mathSub
@@ -16,20 +17,20 @@ mathAdd:
 
 mathSub:
     push %r2
-    ld [%sp - 0x08], %r1
-    ld [%sp + 0x0C], %r2
+    ld [%sp + 8], %r1
+    ld [%sp + 12], %r2
     sub %r2, %r1 # r1 used for the result
     pop %r2
     ret
 
-call  onomatopeja
+call mathSub
 .section rest
-.ascii "I LOVE \t \101\\THE POLICE \77"
+.ascii "I love Rock and Roll"
 label2:
 mathMul:
     push %r2
-    ld [%sp + 0x08], %r1
-    ld [%sp + 0x0C], %r2
+    ld [%sp + 8], %r1
+    ld [%sp + 12], %r2
     mul %r2, %r1 # r1 used for the result
     pop %r2
     beq %r0, %r4, 1151
@@ -37,14 +38,14 @@ mathMul:
 
 mathDiv:
     push %r2
-    ld [%sp + 0x08], %r1
-    ld [%sp + 0x0C], %r2
+    ld [%sp + 8], %r1
+    ld [%sp + 10], %r2
     div %r2, %r1 # r1 used for the result
     pop %r2
-    jmp 0x511
+    jmp 511
     ret
 
-hello: .word 0x11, mathDiv, -033
+hello: .word 17, mathDiv, 33
 # .equ please, help
 # .equ please, help - 0x11
 # .equ please, - help + 0x11
@@ -56,7 +57,7 @@ hello: .word 0x11, mathDiv, -033
 # .equ please, +help - 0x11 + - 012 + testiranje
 # .equ please, +help - 0x11 - + 012 + testiranje
 # .equ please, +help - 0x11 -  -012 + testiranje
-.word 0x11, mathDiv, -033
+.word 17, mathDiv, 33
 
 ld $1, %r1
 
