@@ -12,7 +12,7 @@
 #include "symtab_t.h"
 
 namespace common::symbol {
-    struct object_file {
+    struct object_file_t {
         symtab_t symbtab;
         std::vector<section_t> sections;
 
@@ -20,10 +20,10 @@ namespace common::symbol {
 
         void deserialize(std::ifstream &is);
 
-        friend std::ostream &operator<<(std::ostream &os, object_file const &of);
+        friend std::ostream &operator<<(std::ostream &os, object_file_t const &of);
     };
 
-    std::ostream &operator<<(std::ostream &os, object_file const &of);
+    std::ostream &operator<<(std::ostream &os, object_file_t const &of);
 } // common
 
 #endif //OBJECT_FILE_H

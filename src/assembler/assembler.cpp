@@ -8,7 +8,7 @@
 #include "visitors/second_pass.h"
 
 namespace m_asm {
-    common::symbol::object_file assembler::assemble() {
+    common::symbol::object_file_t assembler::assemble() {
         first_pass();
         second_pass();
         return {

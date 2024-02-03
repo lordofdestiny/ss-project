@@ -11,7 +11,7 @@
 #include "common/section_t.h"
 #include "common/symtab_t.h"
 #include "parser_driver.h"
-#include "common/object_file.h"
+#include "common/object_file_t.h"
 
 namespace m_asm {
     struct section_exception final : std::runtime_error {
@@ -91,7 +91,7 @@ namespace m_asm {
                     .emplace_back(offset, symbol_index, addend);
         }
 
-        common::symbol::object_file assemble();
+        common::symbol::object_file_t assemble();
 
     private:
         void first_pass();
