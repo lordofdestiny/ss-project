@@ -6,6 +6,8 @@
 #define SS_ALE_SYMTAB_T_H
 
 #include <vector>
+#include <fstream>
+#include <ostream>
 
 #include "symbol_t.h"
 
@@ -37,6 +39,10 @@ namespace common::symbol {
         [[nodiscard]] auto find(std::string const &symbol_name) -> symbol_t *;
 
         [[nodiscard]] auto find(std::string const &symbol_name) const -> const symbol_t *;
+
+        void serialize(std::ofstream &os) const;
+
+        void deserialize(std::ifstream &is);
 
         friend std::ostream &operator<<(std::ostream &os, symtab_t const &table);
 

@@ -9,6 +9,9 @@
 #include <utility>
 #include <variant>
 #include <cstdint>
+#include <ostream>
+#include <fstream>
+
 
 namespace common::symbol {
     struct symbol_t {
@@ -25,12 +28,18 @@ namespace common::symbol {
         bool is_equ;
         bool has_value;
 
+        symbol_t() = default;
+
         symbol_t(std::string name, const uint32_t section_index, const uint32_t value,
                  const bool has_value = false, const char local = ' ',
                  const type_t type = type_t::NOTYPE, const bool is_equ = false)
             : name(std::move(name)), section_index(section_index), type(type),
               value(value), local(local), is_equ(is_equ), has_value(has_value) {
         }
+
+        void serialize(std::ofstream &os) const;
+
+        void deserialize(std::ifstream &is);
 
         friend std::ostream &operator<<(std::ostream &os, symbol_t const &symbol);
 

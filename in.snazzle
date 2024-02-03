@@ -23,7 +23,7 @@ mathSub:
     pop %r2
     ret
 
-call mathSub
+call mathAdd
 .section rest
 .ascii "I love Rock and Roll"
 label2:

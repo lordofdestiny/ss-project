@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <variant>
+#include <fstream>
 
 #include "assembler.h"
 #include "parser_driver.h"
@@ -47,16 +48,19 @@ int main(const int argc, char **argv) {
     m_asm::visitor::source_printer printer;
     printer.visit(parsed_src);
 
-#ifdef DEBUG_PRINT
+#if DEBUG_PRINT
     std::cout << printer.to_string();
 #endif
 
     m_asm::assembler assembler(std::ref(parsed_src));
-    assembler.first_pass();
-#ifdef DEBUG_PRINT
-    std::cout << assembler.get_symbol_table();
+    auto const &object_file_data = assembler.assemble();
+#if DEBUG_PRINT
+    std::cout << object_file_data;
 #endif
-    assembler.second_pass();
+
+    std::ofstream out_stream(ofile, std::ios::binary);
+    object_file_data.serialize(out_stream);
+    out_stream.close();
 
     return OK;
 }

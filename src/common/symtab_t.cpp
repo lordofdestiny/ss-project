@@ -24,6 +24,23 @@ namespace common::symbol {
         return nullptr;
     }
 
+    void symtab_t::serialize(std::ofstream &os) const {
+        const auto &symbols_count = m_symbols.size();
+        os.write(reinterpret_cast<const char *>(&symbols_count), sizeof(symbols_count));
+        for (const auto &symbol: m_symbols) {
+            symbol.serialize(os);
+        }
+    }
+
+    void symtab_t::deserialize(std::ifstream &is) {
+        size_t symbol_count = 0;
+        is.read(reinterpret_cast<char *>(&symbol_count), sizeof(symbol_count));
+        m_symbols.resize(symbol_count);
+        for (auto &symbol: m_symbols) {
+            symbol.deserialize(is);
+        }
+    }
+
     std::ostream &operator<<(std::ostream &os, const symtab_t &table) {
         os << std::setw(4) << "id";
         os << std::setw(7) << "type";

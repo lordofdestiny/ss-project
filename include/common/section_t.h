@@ -8,7 +8,8 @@
 #include <cstdint>
 #include <vector>
 #include <string>
-
+#include <fstream>
+#include <ostream>
 #include "relocation_t.h"
 
 namespace common::symbol {
@@ -19,6 +20,8 @@ namespace common::symbol {
         std::vector<uint8_t> data;
         std::vector<relocation_t> relocations;
 
+        section_t() = default;
+
         explicit section_t(std::string name)
             : name(std::move(name)) {
         }
@@ -28,6 +31,10 @@ namespace common::symbol {
         bool operator==(section_t const &other) const;
 
         bool operator!=(section_t const &other) const;
+
+        void serialize(std::ofstream &os) const;
+
+        void deserialize(std::ifstream &is);
 
         friend std::ostream &operator<<(std::ostream &os, const section_t &section);
     };

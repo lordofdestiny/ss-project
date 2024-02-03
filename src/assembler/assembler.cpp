@@ -8,16 +8,20 @@
 #include "visitors/second_pass.h"
 
 namespace m_asm {
+    common::symbol::object_file assembler::assemble() {
+        first_pass();
+        second_pass();
+        return {
+            std::move(symbol_table),
+            std::move(sections)
+        };
+    }
+
     void assembler::first_pass() {
         visitor::first_pass fpv(std::ref(*this));
         for (const auto &stmt: statements.get()) {
             stmt->accept(fpv);
         }
-#ifdef DEBUG_PRINT
-        for (const auto &section: sections) {
-            std::cout << section << '\n';
-        }
-#endif
     }
 
     void assembler::second_pass() {
@@ -25,11 +29,6 @@ namespace m_asm {
         for (const auto &stmt: statements.get()) {
             stmt->accept(spv);
         }
-#ifdef DEBUG_PRINT
-        for (const auto &section: sections) {
-            std::cout << section;
-        }
-#endif
     }
 
     void assembler::create_section(const std::string &name) {

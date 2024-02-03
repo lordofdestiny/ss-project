@@ -6,10 +6,12 @@
 #define ASSEMBLER_H
 
 #include <utility>
+#include <fstream>
 
 #include "common/section_t.h"
 #include "common/symtab_t.h"
 #include "parser_driver.h"
+#include "common/object_file.h"
 
 namespace m_asm {
     struct section_exception final : std::runtime_error {
@@ -89,6 +91,9 @@ namespace m_asm {
                     .emplace_back(offset, symbol_index, addend);
         }
 
+        common::symbol::object_file assemble();
+
+    private:
         void first_pass();
 
         void second_pass();

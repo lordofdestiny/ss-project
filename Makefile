@@ -13,7 +13,7 @@ ASM_INC := $(DIR_INC)/assembler
 LNK_INC := $(DIR_INC)/linker
 EMU_INC := $(DIR_INC)/emulator
 
-DEBUG_FLAG = -D DEBUG_PRINT=0
+DEBUG_FLAG = -D DEBUG_PRINT=1
 
 #executables
 ASSEMBLER := $(BUILD_DIR)/assembler
