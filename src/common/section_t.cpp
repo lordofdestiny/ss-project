@@ -18,38 +18,6 @@ namespace common::symbol {
         return !(*this == other);
     }
 
-    void section_t::serialize(std::ofstream &os) const {
-        os.write(reinterpret_cast<const char *>(&index), sizeof(index));
-        os.write(name.data(), name.size() + 1);
-        os.write(reinterpret_cast<const char *>(&size), sizeof(size));
-
-        os.write(reinterpret_cast<const char *>(data.data()), data.size());
-
-        const auto &relocation_count = relocations.size();
-        os.write(reinterpret_cast<const char *>(&relocation_count), sizeof(relocation_count));
-        for (const auto &relocation: relocations) {
-            relocation.serialize(os);
-        }
-    }
-
-    void section_t::deserialize(std::ifstream &is) {
-        is.read(reinterpret_cast<char *>(&index), sizeof(index));
-        std::getline(is, name, '\0');
-        is.read(reinterpret_cast<char *>(&size), sizeof(size));
-
-        size_t content_size = 0;
-        is.read(reinterpret_cast<char *>(&content_size), sizeof(content_size));
-        data.resize(content_size);
-        is.read(reinterpret_cast<char *>(data.data()), content_size);
-
-        size_t relocation_count = 0;
-        is.read(reinterpret_cast<char *>(&relocation_count), sizeof(relocation_count));
-        relocations.resize(relocation_count);
-        for (auto &relocation: relocations) {
-            relocation.deserialize(is);
-        }
-    }
-
     std::ostream &operator<<(std::ostream &os, const section_t &section) {
         auto &&[index, name, size, data, relocations] = section;
         os << "(" << index << ")[" << name << "]";

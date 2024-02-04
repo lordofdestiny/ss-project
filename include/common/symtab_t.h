@@ -12,6 +12,16 @@
 #include "symbol_t.h"
 
 namespace common::symbol {
+    class symtab_t;
+}
+
+namespace common::util::serde {
+    void serialize(std::ofstream &ofs, symbol::symtab_t const &symtab);
+
+    void deserialize(std::ifstream &ifs, symbol::symtab_t &symtab);
+}
+
+namespace common::symbol {
     class symtab_t {
     public:
         symtab_t() = default;
@@ -40,9 +50,9 @@ namespace common::symbol {
 
         [[nodiscard]] auto find(std::string const &symbol_name) const -> const symbol_t *;
 
-        void serialize(std::ofstream &os) const;
+        friend void util::serde::serialize(std::ofstream &ofs, symtab_t const &symtab);
 
-        void deserialize(std::ifstream &is);
+        friend void util::serde::deserialize(std::ifstream &ifs, symtab_t &symtab);
 
         friend std::ostream &operator<<(std::ostream &os, symtab_t const &table);
 

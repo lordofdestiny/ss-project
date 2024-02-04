@@ -12,6 +12,17 @@
 #include <ostream>
 #include "relocation_t.h"
 
+
+namespace common::symbol {
+    struct section_t;
+}
+
+namespace common::util::serde {
+    void serialize(std::ofstream &ofs, symbol::section_t const &section);
+
+    void deserialize(std::ifstream &ifs, symbol::section_t &section);
+}
+
 namespace common::symbol {
     struct section_t {
         uint32_t index = s_index++;
@@ -32,9 +43,9 @@ namespace common::symbol {
 
         bool operator!=(section_t const &other) const;
 
-        void serialize(std::ofstream &os) const;
+        friend void util::serde::serialize(std::ofstream &ofs, section_t const &section);
 
-        void deserialize(std::ifstream &is);
+        friend void util::serde::deserialize(std::ifstream &ifs, section_t &section);
 
         friend std::ostream &operator<<(std::ostream &os, const section_t &section);
     };

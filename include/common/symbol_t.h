@@ -14,6 +14,16 @@
 
 
 namespace common::symbol {
+    struct symbol_t;
+}
+
+namespace common::util::serde {
+    void serialize(std::ofstream &ofs, symbol::symbol_t const &symbol);
+
+    void deserialize(std::ifstream &ifs, symbol::symbol_t &symbol);
+}
+
+namespace common::symbol {
     struct symbol_t {
         enum class type_t {
             SECTION, NOTYPE
@@ -37,9 +47,9 @@ namespace common::symbol {
               value(value), local(local), is_equ(is_equ), has_value(has_value) {
         }
 
-        void serialize(std::ofstream &os) const;
+        friend void util::serde::serialize(std::ofstream &ofs, symbol_t const &symbol);
 
-        void deserialize(std::ifstream &is);
+        friend void util::serde::deserialize(std::ifstream &ifs, symbol_t &symbol);
 
         friend std::ostream &operator<<(std::ostream &os, symbol_t const &symbol);
 

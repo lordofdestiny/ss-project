@@ -12,13 +12,23 @@
 #include "symtab_t.h"
 
 namespace common::symbol {
+    struct object_file_t;
+}
+
+namespace common::util::serde {
+    void serialize(std::ofstream &ofs, symbol::object_file_t const &object_file);
+
+    void deserialize(std::ifstream &ifs, symbol::object_file_t &object_file);
+}
+
+namespace common::symbol {
     struct object_file_t {
-        symtab_t symbtab;
+        symtab_t symtab;
         std::vector<section_t> sections;
 
-        void serialize(std::ofstream &os) const;
+        friend void util::serde::serialize(std::ofstream &ofs, object_file_t const &object_file);
 
-        void deserialize(std::ifstream &is);
+        friend void util::serde::deserialize(std::ifstream &ifs, object_file_t &object_file);
 
         friend std::ostream &operator<<(std::ostream &os, object_file_t const &of);
     };

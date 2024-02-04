@@ -9,6 +9,7 @@
 #include "assembler.h"
 #include "common/instruction_t.h"
 #include "common/util.h"
+#include "common/serde.h"
 
 enum asm_result_t {
     OK,
@@ -53,13 +54,13 @@ int main(const int argc, char **argv) {
 #endif
 
     m_asm::assembler assembler(std::ref(parsed_src));
-    auto const &object_file_data = assembler.assemble();
+    const auto object_file_data = assembler.assemble();
 #if DEBUG_PRINT
     std::cout << object_file_data;
 #endif
 
     std::ofstream out_stream(ofile, std::ios::binary);
-    object_file_data.serialize(out_stream);
+    common::util::serde::serialize(out_stream, object_file_data);
     out_stream.close();
 
     return OK;

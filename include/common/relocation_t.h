@@ -9,6 +9,16 @@
 #include <ostream>
 
 namespace common::symbol {
+    struct relocation_t;
+}
+
+namespace common::util::serde {
+    void serialize(std::ofstream &ofs, symbol::relocation_t const &relocation);
+
+    void deserialize(std::ifstream &ifs, symbol::relocation_t &relocation);
+}
+
+namespace common::symbol {
     struct relocation_t {
         uint64_t offset;
         uint64_t symbol;
@@ -21,9 +31,9 @@ namespace common::symbol {
             : offset(offset), symbol(symbol), addend(addend) {
         }
 
-        void serialize(std::ofstream &os) const;
+        friend void util::serde::serialize(std::ofstream &ofs, relocation_t const &relocation);
 
-        void deserialize(std::ifstream &is);
+        friend void util::serde::deserialize(std::ifstream &ifs, relocation_t &relocation);
 
         friend std::ostream &operator<<(std::ostream &os, relocation_t const &reloc);
     };
