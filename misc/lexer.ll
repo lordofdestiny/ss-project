@@ -19,7 +19,7 @@
 %option noyywrap nounput noinput batch debug
 
 blank           [ \t\r]
-dec_int         [1-9][0-9]*
+dec_int         0|([1-9][0-9]*)
 oct_int         0[0-7]+
 hex_int         0(x|X)[0-9a-fA-F]+
 integer         {dec_int}|{oct_int}|{hex_int}
@@ -155,9 +155,9 @@ csrwr               return parser::make_INST_CSRWR(mnemonic_t::CSRWR, loc);
 }
 
 
-{dec_int}           return parser::make_UINT_LITERAL(std::stoi(yytext, nullptr, 10), loc);
-{oct_int}           return parser::make_UINT_LITERAL(std::stoi(yytext, nullptr, 8), loc);
-{hex_int}           return parser::make_UINT_LITERAL(std::stoi(yytext, nullptr, 16), loc);
+{dec_int}           return parser::make_UINT_LITERAL(std::stoul(yytext, nullptr, 10), loc);
+{oct_int}           return parser::make_UINT_LITERAL(std::stoul(yytext, nullptr, 8), loc);
+{hex_int}           return parser::make_UINT_LITERAL(std::stoul(yytext, nullptr, 16), loc);
 {symbol}            return parser::make_SYMBOL(yytext, loc);
 
 .                   throw parser::syntax_error(loc, "invalid character: "s + yytext);

@@ -296,7 +296,7 @@ namespace m_asm::visitor {
                     instruction_t::jump_mode::REG_IND_DISP,
                     reg_t::pc, 0, 0, 4
                 ).to_word());
-                asm_ref.get().write_word(std::get<number_t>(memory.operand.value));
+                asm_ref.get().write_word(0);
                 asm_ref.get().write_word(instruction_t::make_load(
                     instruction_t::load_mode::REG_DISP_IND,
                     memory.reg, memory.reg, 0, 0

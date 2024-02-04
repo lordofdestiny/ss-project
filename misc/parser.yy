@@ -359,17 +359,17 @@ operand:
     	$$.type = op_type_t::SYMBOL_ADDR;
     	$$.value = $1;
     }
-    | REG{
+    | REG {
     	$$.type = op_type_t::REG_VALUE;
-    	$$.value = $1;
+    	$$.value = reg_t{$1};
     }
     | "[" REG "]" {
     	$$.type = op_type_t::REG_MEMORY_ADDR;
-    	$$.value = $2;
+    	$$.value = reg_t{$2};
     }
     | "[" REG "+" UINT_LITERAL "]" {
         $$.type = op_type_t::REG_ADDR_LITERAL_OFFSET;
-    	$$.value = std::make_tuple($2, $4);
+    	$$.value = std::make_tuple(reg_t{$2}, $4);
     }
     | "[" REG "-" UINT_LITERAL "]" {
         $$.type = op_type_t::REG_ADDR_LITERAL_OFFSET;
@@ -377,7 +377,7 @@ operand:
     }
     | "[" REG "+" SYMBOL "]" {
         $$.type = op_type_t::REG_ADDR_SYMBOL_OFFSET;
-    	$$.value = std::make_tuple($2, $4);
+    	$$.value = std::make_tuple(reg_t{$2}, $4);
     };
 ENDLS:
     ENDLS ENDL | ENDL;

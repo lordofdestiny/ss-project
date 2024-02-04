@@ -2,6 +2,7 @@
 #include <string>
 #include <variant>
 #include <fstream>
+#include <filesystem>
 
 #include "assembler.h"
 #include "parser_driver.h"
@@ -13,27 +14,30 @@
 
 enum asm_result_t {
     OK,
-    PARSE_ERROR
+    PARSE_ERROR,
+    ARG_ERROR,
 };
 
 int main(const int argc, char **argv) {
     using namespace std::string_literals;
 
-    [[maybe_unused]] auto ofile = "a.out";
-    [[maybe_unused]] auto *ifile = "none";
+    auto ofile = "a.out";
+    auto *ifile = "none";
     if (argc < 2) {
         std::cout << "arguments missing\n";
-        return 1;
+        return ARG_ERROR;
     }
     if (argc == 2) {
         ifile = argv[1];
-    } else if (argv[1] != "-o"s) {
+    } else if (argv[1] == "-o"s && argc == 4) {
         ofile = argv[2];
         ifile = argv[3];
+    } else if(argv[2] == "-o"s && argc == 4) {
+        ofile = argv[3];
+        ifile = argv[1];
     }
 
     using m_asm::parser_driver, m_asm::parse_error_t, m_asm::parsed_file_t;
-
     // parser_driver::trace_scanning(false);
     // parser_driver::trace_parsing(false);
     parser_driver driver;
@@ -59,6 +63,7 @@ int main(const int argc, char **argv) {
     std::cout << object_file_data;
 #endif
 
+    std::filesystem::create_directories(std::filesystem::absolute(ofile).parent_path());
     std::ofstream out_stream(ofile, std::ios::binary);
     common::util::serde::serialize(out_stream, object_file_data);
     out_stream.close();
