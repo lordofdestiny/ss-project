@@ -11,11 +11,11 @@ namespace m_asm::visitor {
     void first_pass::visit_label(stmt_t::label_t &label) {
         asm_ref.get().add_symbol(
             true, label.label, asm_ref.get().current_section().index,
-            true, asm_ref.get().get_sections().back().size, 'l');
+            asm_ref.get().current_section().size, true, 'l');
     }
 
     void first_pass::visit_global(stmt_t::global_t &global) {
-        auto symtab = asm_ref.get().get_symbol_table();
+        auto &symtab = asm_ref.get().get_symbol_table();
         for (const auto &symbol_name: global.symbols) {
             if (const auto symbol = symtab.find(symbol_name)) {
                 symbol->local = 'g';

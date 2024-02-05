@@ -25,6 +25,7 @@ namespace m_asm {
     public:
         explicit assembler(const std::reference_wrapper<parsed_file_t> parsed_file)
             : statements(parsed_file) {
+            symbol_table.emplace("", 0, 0, false, 'l');
         }
 
         assembler(assembler const &) = delete;
@@ -102,11 +103,9 @@ namespace m_asm {
         std::reference_wrapper<parsed_file_t> statements;
         uint32_t curr_section = 0;
         std::vector<common::symbol::section_t> sections{
-            common::symbol::section_t{""}
+            common::symbol::section_t{0, ""}
         };
-        common::symbol::symtab_t symbol_table{
-            {"", 0, 0, false, 'l'}
-        };
+        common::symbol::symtab_t symbol_table;
     };
 } // m_asm
 

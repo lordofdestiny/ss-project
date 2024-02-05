@@ -26,20 +26,23 @@ namespace common::symbol {
     public:
         symtab_t() = default;
 
-        explicit symtab_t(const std::initializer_list<symbol_t> symbols) : m_symbols(symbols) {
-        }
+        [[nodiscard]] auto begin() -> std::vector<symbol_t>::iterator { return m_symbols.begin(); }
 
-        [[nodiscard]] auto begin() { return m_symbols.begin(); }
+        [[nodiscard]] auto end() -> std::vector<symbol_t>::iterator { return m_symbols.end(); }
 
-        [[nodiscard]] auto end() { return m_symbols.end(); }
+        [[nodiscard]] auto begin() const -> std::vector<symbol_t>::const_iterator { return m_symbols.begin(); }
 
-        [[nodiscard]] auto begin() const { return m_symbols.begin(); }
+        [[nodiscard]] auto end() const -> std::vector<symbol_t>::const_iterator { return m_symbols.end(); }
 
-        [[nodiscard]] auto end() const { return m_symbols.end(); }
+        [[nodiscard]] auto cbegin() const -> std::vector<symbol_t>::const_iterator { return m_symbols.cbegin(); }
 
-        [[nodiscard]] auto cbegin() const { return m_symbols.cbegin(); }
+        [[nodiscard]] auto cend() const -> std::vector<symbol_t>::const_iterator { return m_symbols.cend(); }
 
-        [[nodiscard]] auto cend() const { return m_symbols.cend(); }
+        [[nodiscard]] auto size() const -> size_t { return m_symbols.size(); }
+        [[nodiscard]] auto front() -> symbol_t & { return m_symbols.front(); }
+        [[nodiscard]] auto front() const -> symbol_t const & { return m_symbols.front(); }
+        [[nodiscard]] auto back() -> symbol_t & { return m_symbols.back(); }
+        [[nodiscard]] auto back() const -> symbol_t const & { return m_symbols.back(); }
 
         template<typename... Ts>
         symbol_t &emplace(Ts &&... args) {
@@ -57,7 +60,7 @@ namespace common::symbol {
         friend std::ostream &operator<<(std::ostream &os, symtab_t const &table);
 
     private:
-        std::vector<symbol_t> m_symbols{};
+        std::vector<symbol_t> m_symbols;
     };
 
     std::ostream &operator<<(std::ostream &os, symtab_t const &table);

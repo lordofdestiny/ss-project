@@ -13,7 +13,7 @@ namespace m_asm::visitor {
     using common::instruction_t;
 
     void second_pass::visit_global(stmt_t::global_t &global) {
-        auto symtab = asm_ref.get().get_symbol_table();
+        auto &symtab = asm_ref.get().get_symbol_table();
         for (const auto &symbol_name: global.symbols) {
             if (const auto symbol = symtab.find(symbol_name); symbol == nullptr) {
                 throw std::logic_error("symbol " + symbol_name + " not found");

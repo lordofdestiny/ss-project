@@ -49,14 +49,7 @@ int main(const int argc, char **argv) {
     }
 
     auto &parsed_src = std::get<parsed_file_t>(result);
-
-    m_asm::visitor::source_printer printer;
-    printer.visit(parsed_src);
-
-#if DEBUG_PRINT
-    std::cout << printer.to_string();
-#endif
-
+    
     m_asm::assembler assembler(std::ref(parsed_src));
     const auto object_file_data = assembler.assemble();
 #if DEBUG_PRINT

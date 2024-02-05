@@ -26,7 +26,7 @@ namespace common::util::serde {
 namespace common::symbol {
     struct symbol_t {
         enum class type_t {
-            SECTION, NOTYPE
+            SECTION, NOTYPE, UNSET
         };
 
         uint32_t index = s_index++;
@@ -47,13 +47,29 @@ namespace common::symbol {
               value(value), local(local), is_equ(is_equ), has_value(has_value) {
         }
 
+        symbol_t(symbol_t const &other)
+            : name(other.name), section_index(other.section_index),
+              type(other.type), value(other.value), local(other.local),
+              is_equ(other.is_equ), has_value(other.has_value) {
+        }
+
+        symbol_t(symbol_t &&other) noexcept
+            : index(std::exchange(other.index, 0)),
+              name(std::move(other.name)),
+              section_index(std::exchange(other.section_index, 0)),
+              type(std::exchange(other.type, type_t::UNSET)),
+              value(std::exchange(other.value, 0)),
+              local(std::exchange(other.local, ' ')),
+              is_equ(std::exchange(other.is_equ, false)),
+              has_value(std::exchange(other.has_value, false)) {
+        }
+
         friend void util::serde::serialize(std::ofstream &ofs, symbol_t const &symbol);
 
         friend void util::serde::deserialize(std::ifstream &ifs, symbol_t &symbol);
 
         friend std::ostream &operator<<(std::ostream &os, symbol_t const &symbol);
 
-    private:
         static inline uint32_t s_index = 0;
     };
 

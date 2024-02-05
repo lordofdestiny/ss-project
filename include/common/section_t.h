@@ -25,7 +25,7 @@ namespace common::util::serde {
 
 namespace common::symbol {
     struct section_t {
-        uint32_t index = s_index++;
+        uint32_t index;
         std::string name;
         uint32_t size = 0;
         std::vector<uint8_t> data;
@@ -33,8 +33,8 @@ namespace common::symbol {
 
         section_t() = default;
 
-        explicit section_t(std::string name)
-            : name(std::move(name)) {
+        explicit section_t(const size_t index, std::string name)
+            : index(index), name(std::move(name)) {
         }
 
         static inline uint32_t s_index = 0;

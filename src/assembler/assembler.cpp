@@ -44,9 +44,9 @@ namespace m_asm {
             );
         }
         curr_section = sections.size();
-        sections.emplace_back(name);
-        symbol_table.emplace(name, curr_section, 0, false, 'l',
+        symbol_table.emplace(name, symbol_table.size(), 0, false, 'l',
                              common::symbol::symbol_t::type_t::SECTION);
+        sections.emplace_back(symbol_table.back().section_index, name);
     }
 
     void assembler::set_current_section(const std::string &name) {
