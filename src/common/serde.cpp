@@ -47,7 +47,7 @@ namespace common::util::serde {
     }
 
     void serialize(std::ofstream &ofs, symbol::symtab_t const &symtab) {
-        const auto &symbols_count = symtab.m_symbols.size();
+        const auto symbols_count = symtab.m_symbols.size();
         ofs.write(reinterpret_cast<const char *>(&symbols_count), sizeof(symbols_count));
         for (const auto &symbol: symtab.m_symbols) {
             serialize(ofs, symbol);
@@ -65,12 +65,16 @@ namespace common::util::serde {
 
     void serialize(std::ofstream &ofs, symbol::section_t const &section) {
         ofs.write(reinterpret_cast<const char *>(&section.index), sizeof(section.index));
+
         ofs.write(section.name.data(), section.name.size() + 1);
+
         ofs.write(reinterpret_cast<const char *>(&section.size), sizeof(section.size));
 
+        const auto data_size = section.data.size();
+        ofs.write(reinterpret_cast<const char*>(&data_size), sizeof(data_size));
         ofs.write(reinterpret_cast<const char *>(section.data.data()), section.data.size());
 
-        const auto &relocation_count = section.relocations.size();
+        const auto relocation_count = section.relocations.size();
         ofs.write(reinterpret_cast<const char *>(&relocation_count), sizeof(relocation_count));
         for (const auto &relocation: section.relocations) {
             serialize(ofs, relocation);
@@ -79,7 +83,9 @@ namespace common::util::serde {
 
     void deserialize(std::ifstream &ifs, symbol::section_t &section) {
         ifs.read(reinterpret_cast<char *>(&section.index), sizeof(section.index));
+
         std::getline(ifs, section.name, '\0');
+
         ifs.read(reinterpret_cast<char *>(&section.size), sizeof(section.size));
 
         size_t content_size = 0;
