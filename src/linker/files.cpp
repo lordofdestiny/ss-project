@@ -37,7 +37,7 @@ namespace m_lnk {
         std::transform(filenames.begin(), filenames.end(),
                        std::inserter(files, files.begin()),
                        [&](auto const &filename) {
-                           std::ifstream ifs{filename};
+                           std::ifstream ifs{filename, std::ios::binary};
                            common::symbol::object_file_t obj_file;
                            common::util::serde::deserialize(ifs, obj_file);
                            ifs.close();

@@ -23,7 +23,7 @@ namespace common::symbol {
         os << "(" << index << ")[" << name << "]";
         os << "{size = " << size << ", data_size = " << data.size() << "}";
         os << "<relocations = " << relocations.size() << ">\n";
-        if (section.data.size() > 0) {
+        if (!section.data.empty()) {
             os << std::string(25, '-') << " CONTENTS " << std::string(25, '-') << '\n';
             // Header
             os << std::string(12, ' ');
@@ -40,7 +40,7 @@ namespace common::symbol {
                 os << '\n';
             }
         }
-        if (relocations.size() > 0) {
+        if (!relocations.empty()) {
             std::copy(relocations.begin(), relocations.end(),
                       std::ostream_iterator<relocation_t>(os, "\n"));
         }

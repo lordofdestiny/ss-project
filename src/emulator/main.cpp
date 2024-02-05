@@ -4,6 +4,5 @@
 
 int main() {
     std::cout << "I'm the emulator!\n";
-    std::cout << common::relocation_t{0,0,0};
     return 0;
 }
