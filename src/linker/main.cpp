@@ -63,7 +63,9 @@ int main(int argc, char **argv) {
     } else if (as_hex) {
         std::cout << "As hex file\n";
         common::symbol::exec_file_t exec_file(obj_file, places);
-        std::cout << exec_file;
+        std::ofstream ofs(out_file, std::ios::binary);
+        common::util::serde::serialize(ofs, exec_file);
+        ofs.close();
     }
 
     return OK;

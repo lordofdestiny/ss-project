@@ -23,6 +23,27 @@ namespace common::util::serde {
         }
     }
 
+    void serialize(std::ofstream &ofs, symbol::exec_file_t const &exec_file) {
+        const auto size = exec_file.data.size();
+        ofs.write(reinterpret_cast<const char *>(&size), sizeof(size));
+        for (const auto &[address, value]: exec_file.data) {
+            ofs.write(reinterpret_cast<const char *>(&address), sizeof(address));
+            ofs.write(reinterpret_cast<const char *>(&value), sizeof(value));
+        }
+    }
+
+    void deserialize(std::ifstream &ifs, symbol::exec_file_t &exec_file) {
+        size_t size = 0;
+        ifs.read(reinterpret_cast<char *>(&size), sizeof(size));
+        for (size_t i = 0; i < size; i++) {
+            uint32_t address;
+            uint8_t value;
+            ifs.read(reinterpret_cast<char *>(&address), sizeof(address));
+            ifs.read(reinterpret_cast<char *>(&value), sizeof(value));
+            exec_file.data[address] = value;
+        }
+    }
+
     void serialize(std::ofstream &ofs, symbol::symbol_t const &symbol) {
         auto const &[index, name, section_index, type, value, local, is_equ, has_value] = symbol;
         ofs.write(reinterpret_cast<const char *>(&index), sizeof(index));
@@ -58,7 +79,7 @@ namespace common::util::serde {
         size_t symbol_count = 0;
         ifs.read(reinterpret_cast<char *>(&symbol_count), sizeof(symbol_count));
         symtab.m_symbols.resize(symbol_count);
-        for(auto& symbol: symtab.m_symbols) {
+        for (auto &symbol: symtab.m_symbols) {
             deserialize(ifs, symbol);
         }
     }
@@ -71,7 +92,7 @@ namespace common::util::serde {
         ofs.write(reinterpret_cast<const char *>(&section.size), sizeof(section.size));
 
         const auto data_size = section.data.size();
-        ofs.write(reinterpret_cast<const char*>(&data_size), sizeof(data_size));
+        ofs.write(reinterpret_cast<const char *>(&data_size), sizeof(data_size));
         ofs.write(reinterpret_cast<const char *>(section.data.data()), section.data.size());
 
         const auto relocation_count = section.relocations.size();

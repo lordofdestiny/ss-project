@@ -12,11 +12,16 @@
 #include "section_t.h"
 #include "relocation_t.h"
 #include "object_file_t.h"
+#include "exec_file_t.h"
 
 namespace common::util::serde {
     void serialize(std::ofstream &ofs, symbol::object_file_t const &object_file);
 
     void deserialize(std::ifstream &ifs, symbol::object_file_t &object_file);
+
+    void serialize(std::ofstream &ofs, symbol::exec_file_t const &object_file);
+
+    void deserialize(std::ifstream &ifs, symbol::exec_file_t &object_file);
 
     void serialize(std::ofstream &ofs, symbol::symbol_t const &symbol);
 

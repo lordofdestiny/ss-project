@@ -10,12 +10,27 @@
 #include "object_file_t.h"
 
 namespace common::symbol {
+    struct exec_file_t;
+}
+
+namespace common::util::serde {
+    void serialize(std::ofstream &ofs, symbol::exec_file_t const &object_file);
+
+    void deserialize(std::ifstream & ifs, symbol::exec_file_t & object_file);
+}
+
+namespace common::symbol {
     struct exec_file_t {
         using places_t = std::unordered_map<std::string, uint32_t>;
 
         exec_file_t() = default;
 
         exec_file_t(object_file_t const &object_file, places_t const &places);
+
+        friend void util::serde::serialize(std::ofstream &ofs, exec_file_t const &object_file);
+
+        friend void util::serde::deserialize(std::ifstream &ifs, exec_file_t &object_file);
+
 
         friend std::ostream &operator<<(std::ostream &os, exec_file_t const &exec_file);
 
