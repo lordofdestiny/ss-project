@@ -58,19 +58,27 @@ namespace common::symbol {
     }
 
     std::ostream &operator<<(std::ostream &os, exec_file_t const &exec_file) {
-        os << "Sections: \n";
-        os << std::hex << std::setfill('0');
-        for (const auto &[name, range]: exec_file.sections) {
-            if (name == "$" || name == "") continue;
-            os << name << ": [0x" << std::setw(8) << range.begin;
-            os << ", 0x" << std::setw(8) << range.end << "]\n";
+        if (!exec_file.sections.empty()) {
+            os << "Sections: \n";
+            os << std::hex << std::setfill('0');
+            for (const auto &[name, range]: exec_file.sections) {
+                if (name == "$" || name == "") continue;
+                os << name << ": [0x" << std::setw(8) << range.begin;
+                os << ", 0x" << std::setw(8) << range.end << "]\n";
+            }
+            os << '\n';
+            os << std::dec << std::setfill(' ');
         }
-        os << "\nSymbols: \n";
-        for (const auto &[name, addr]: exec_file.symbols) {
-            os << name << ": " << "0x" << std::setw(8) << addr << '\n';
+        if (!exec_file.symbols.empty()) {
+            os << "Symbols: \n";
+            os << std::hex << std::setfill('0');
+            for (const auto &[name, addr]: exec_file.symbols) {
+                os << name << ": " << "0x" << std::setw(8) << addr << '\n';
+            }
+            os << '\n';
+            os << std::dec << std::setfill(' ');
         }
-        os << '\n';
-        os << std::dec << std::setfill(' ');
+
 
         os << "Data: \n";
         // Header
@@ -80,6 +88,7 @@ namespace common::symbol {
             os << std::setw(2) << i << " ";
         }
         os << '\n';
+        os << std::dec << std::setfill(' ');
 
         size_t last_address_group = 0;
         for (const auto &[addr, value]: exec_file.data) {
@@ -102,6 +111,6 @@ namespace common::symbol {
             // os <<
         }
 
-        return os;
+        return os << std::dec << std::setfill(' ');
     }
 }
