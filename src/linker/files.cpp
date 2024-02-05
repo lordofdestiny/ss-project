@@ -36,13 +36,12 @@ namespace m_lnk {
         input_files_t files;
         std::transform(filenames.begin(), filenames.end(),
                        std::inserter(files, files.begin()),
-                       [&](auto const &filename) -> input_files_t::value_type {
-                           std::cout << filename << '\n';
+                       [&](auto const &filename) {
                            std::ifstream ifs{filename};
                            common::symbol::object_file_t obj_file;
                            common::util::serde::deserialize(ifs, obj_file);
                            ifs.close();
-                           return {filename, obj_file};
+                           return obj_file;
                        });
 
         return files;

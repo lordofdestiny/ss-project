@@ -5,7 +5,6 @@
 #ifndef FILES_H
 #define FILES_H
 
-#include <unordered_map>
 #include <string>
 #include <vector>
 #include <filesystem>
@@ -13,7 +12,7 @@
 #include "../common/object_file_t.h"
 
 namespace m_lnk {
-    using input_files_t = std::unordered_map<std::string, common::symbol::object_file_t>;
+    using input_files_t = std::vector<common::symbol::object_file_t>;
 
     struct file_error_t {
         enum class type_t {

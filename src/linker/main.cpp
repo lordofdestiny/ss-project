@@ -37,9 +37,7 @@ int main(int argc, char **argv) {
 
     const auto &obj_files = std::get<m_lnk::input_files_t>(files);
     for (const auto &obj_file: obj_files) {
-        const auto &[name, file] = obj_file;
-        std::cout << "Filename: " << name << '\n';
-        std::cout << file;
+        std::cout << obj_file;
     }
 
     return OK;
