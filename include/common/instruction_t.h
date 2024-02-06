@@ -6,6 +6,7 @@
 #define INSTRUCTION_T_H
 
 #include <cstdint>
+#include <cstring>
 #include <type_traits>
 
 #include "operand.h"
@@ -119,6 +120,19 @@ namespace common {
 
         [[nodiscard]] uint32_t to_word() const {
             return (code << 28) | (mode << 24) | (reg1 << 20) | (reg2 << 16) | (reg3 << 12) | (disp & 0xFFF);
+        }
+
+        static [[nodiscard]] instruction_t from_word(const uint32_t word) {
+            int32_t signed_value;
+            std::memcpy(&signed_value, &word, sizeof(word));
+            return instruction_t{
+                word >> 28,
+                (word >> 24) & 0xFF,
+                (word >> 20) & 0xFF,
+                (word >> 16) & 0xFF,
+                (word >> 12) & 0xFF,
+                signed_value & 0xFFF
+            };
         }
 
         [[nodiscard]] static uint32_t to_negative_12_bit(const uint32_t value) {

@@ -45,7 +45,7 @@ namespace m_lnk {
         using namespace common::symbol;
         for (const auto &symbol: object_file.symtab) {
             // For non-exported symbols
-            if (symbol.local == 'l' && symbol.type != symbol_t::type_t::SECTION) {
+            if (symbol.local != 'g' && symbol.type != symbol_t::type_t::SECTION) {
                 symbol_t new_symbol{symbol};
                 new_symbol.name = "$" + new_symbol.name;
 
@@ -67,7 +67,7 @@ namespace m_lnk {
 
                 if (symbol.type == symbol_t::type_t::SECTION) {
                     new_symbol.section_index = symtab.size();
-                } else if (symbol.section_index != 0) {
+                } else if (symbol.section_index != (section_t::SECTION_UNDEF & 0xFF'FF'FF'FF)) {
                     const auto translated_section_index = translate_symbol_section(object_file, symbol);
                     if (const auto translation_it = translations.find(symbol.section_index);
                         translation_it != translations.end()) {
@@ -80,7 +80,7 @@ namespace m_lnk {
                        symbol.type == symbol_t::type_t::SECTION) {
                 const auto &duplicated_section_symbol = sections[duplicate_symbol->name];
                 translations[symbol.section_index] = duplicated_section_symbol.data.size();
-            } else if (duplicate_symbol->section_index == 0) {
+            } else if (duplicate_symbol->section_index == (section_t::SECTION_UNDEF & 0xFF'FF'FF'FF)) {
                 duplicate_symbol->type = symbol.type;
                 duplicate_symbol->value = symbol.value;
 
@@ -93,12 +93,13 @@ namespace m_lnk {
                 } else {
                     const auto translated_section_index = translate_symbol_section(object_file, symbol);
                     duplicate_symbol->section_index = translated_section_index;
+
                     if (const auto translation_it = translations.find(symbol.section_index);
                         translation_it != translations.end()) {
                         duplicate_symbol->value += translation_it->second;
                     }
                 }
-            } else if (symbol.section_index != 0) {
+            } else if (symbol.section_index != (section_t::SECTION_UNDEF & 0xFF'FF'FF'FF)) {
                 throw std::logic_error("symbol already defined");
             }
         }
@@ -117,6 +118,7 @@ namespace m_lnk {
                 new_section.relocations.clear();
             } else {
                 old_size = new_section.data.size();
+                new_section.size += section.size;
                 new_section.data.insert(
                     new_section.data.end(),
                     section.data.begin(), section.data.end()
@@ -129,10 +131,7 @@ namespace m_lnk {
                                                                [&](auto const &symbol) {
                                                                    return symbol.name == original_name;
                                                                });
-
-                bool und_section = translated_symbol_it == symtab.end();
-                const auto translated_symbol_index =
-                        und_section ? 0 : std::distance(symtab.begin(), translated_symbol_it);
+                const auto translated_symbol_index = std::distance(symtab.begin(), translated_symbol_it);
 
                 relocation_t new_relocation{relocation};
                 new_relocation.symbol = translated_symbol_index;

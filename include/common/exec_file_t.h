@@ -16,7 +16,7 @@ namespace common::symbol {
 namespace common::util::serde {
     void serialize(std::ofstream &ofs, symbol::exec_file_t const &object_file);
 
-    void deserialize(std::ifstream & ifs, symbol::exec_file_t & object_file);
+    void deserialize(std::ifstream &ifs, symbol::exec_file_t &object_file);
 }
 
 namespace common::symbol {
@@ -46,6 +46,8 @@ namespace common::symbol {
         uint32_t free_address = 0;
         std::map<std::string, section_range_t> sections;
         std::map<std::string, uint32_t> symbols;
+
+    public:
         std::map<uint32_t, uint8_t> data;
     };
 

@@ -25,6 +25,9 @@ namespace common::util::serde {
 
 namespace common::symbol {
     struct section_t {
+        static constexpr size_t SECTION_ABS = static_cast<size_t>(-2);
+        static constexpr size_t SECTION_UNDEF = static_cast<size_t>(-1);
+
         uint32_t index;
         std::string name;
         uint32_t size = 0;

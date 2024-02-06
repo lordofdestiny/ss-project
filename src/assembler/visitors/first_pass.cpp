@@ -25,7 +25,10 @@ namespace m_asm::visitor {
 
     void first_pass::visit_extern(stmt_t::extern_t &anExtern) {
         for (const auto &symbol: anExtern.symbols) {
-            asm_ref.get().add_symbol(false, symbol, 0, 0, false, 'g');
+            asm_ref.get().add_symbol(
+                false, symbol,
+                common::symbol::section_t::SECTION_UNDEF,
+                0, false, 'g');
         }
     }
 

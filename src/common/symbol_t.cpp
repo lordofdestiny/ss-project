@@ -8,20 +8,23 @@
 #include <string>
 
 #include "common/symbol_t.h"
+
+#include "common/section_t.h"
 #include "common/util.h"
 
 namespace common::symbol {
-     std::ostream &operator<<(std::ostream &os, symbol_t const &symbol) {
+    std::ostream &operator<<(std::ostream &os, symbol_t const &symbol) {
         using namespace std::string_literals;
         using util::hex_to_string;
 
         os << std::setw(4) << std::dec << symbol.index;
         os << std::setw(7) << (symbol.type == symbol_t::type_t::SECTION ? "SCTN" : "NOTYPE");
-        os << std::setw(7)
-                << (symbol.section_index != -1u ? std::to_string(symbol.section_index) : "*ABS*"s);
+        os << std::setw(7) << (symbol.section_index == section_t::SECTION_UNDEF
+                                   ? "*UND*"s
+                                   : std::to_string(symbol.section_index));
         os << std::hex << std::setw(10) << hex_to_string(symbol.value);
         os << "  " << symbol.local << "  ";
-        os << (symbol.name.empty() ? "*UND*"s : symbol.name);
+        os << symbol.name;
         return os << std::dec;
     }
 }

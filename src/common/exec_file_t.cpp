@@ -7,6 +7,8 @@
 
 #include "../../include/common/exec_file_t.h"
 
+#include <iostream>
+
 namespace common::symbol {
     exec_file_t::exec_file_t(object_file_t const &object_file, places_t const &places) {
         setup_sections(object_file, places);
@@ -23,7 +25,7 @@ namespace common::symbol {
                 const auto &symbol = object_file.symtab.begin()[relocation.symbol];
                 const auto symbol_address = symbols[symbol.name] + relocation.addend;
                 for (int i = 0; i < 4; i++) {
-                    data[s_begin + relocation.offset + i] = (symbol_address >> (8 * i)) & 0xFF;
+                    data[s_begin + relocation.offset + i] = (symbol_address >> (8 * (3 - i))) & 0xFF;
                 }
             }
         }
@@ -88,7 +90,6 @@ namespace common::symbol {
             os << std::setw(2) << i << " ";
         }
         os << '\n';
-        os << std::dec << std::setfill(' ');
 
         size_t last_address_group = 0;
         for (const auto &[addr, value]: exec_file.data) {

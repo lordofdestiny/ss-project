@@ -46,10 +46,10 @@ namespace m_asm::visitor {
             }
             asm_ref.get().add_relocation(
                 asm_ref.get().current_section().data.size() + 4,
-                symbol_it->local
+                symbol_it->local == 'l'
                     ? symbol_it->section_index
                     : std::distance(symtab.begin(), symbol_it),
-                symbol_it->local ? symbol_it->value : 0
+                symbol_it->local == 'l' ? symbol_it->value : 0
             );
 
             asm_ref.get().write_word(0);
@@ -90,7 +90,7 @@ namespace m_asm::visitor {
         }
         case mnemonic_t::RET: {
             asm_ref.get().write_word(instruction_t::make_load(
-                instruction_t::load_mode::REG_DISP_IND,
+                instruction_t::load_mode::REG_DISP_IND_POSTINC,
                 reg_t::pc, reg_t::sp, 0, 4
             ).to_word());
             break;
@@ -221,7 +221,7 @@ namespace m_asm::visitor {
                     memory.reg, reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, 0, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(std::get<number_t>(memory.operand.value));
@@ -243,13 +243,13 @@ namespace m_asm::visitor {
                 }
                 asm_ref.get().add_relocation(
                     asm_ref.get().current_section().data.size() + 4,
-                    symbol_it->local
+                    symbol_it->local == 'l'
                         ? symbol_it->section_index
                         : std::distance(symtab.begin(), symbol_it),
-                    symbol_it->local ? symbol_it->value : 0
+                    symbol_it->local == 'l' ? symbol_it->value : 0
                 );
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, 0, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(0);
@@ -261,7 +261,7 @@ namespace m_asm::visitor {
                     memory.reg, reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, 0, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(std::get<number_t>(memory.operand.value));
@@ -287,13 +287,13 @@ namespace m_asm::visitor {
                 }
                 asm_ref.get().add_relocation(
                     asm_ref.get().current_section().data.size() + 4,
-                    symbol_it->local
+                    symbol_it->local == 'l'
                         ? symbol_it->section_index
                         : std::distance(symtab.begin(), symbol_it),
-                    symbol_it->local ? symbol_it->value : 0
+                    symbol_it->local == 'l' ? symbol_it->value : 0
                 );
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, 0, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(0);
@@ -326,9 +326,11 @@ namespace m_asm::visitor {
                 if (!common::util::is_valid_literal(literal)) {
                     throw std::logic_error("Literal can't be written as a 12-bit signed integer");
                 }
+                uint32_t disp;
+                std::memcpy(&disp, &literal, sizeof(literal));
                 asm_ref.get().write_word(instruction_t::make_load(
                     instruction_t::load_mode::REG_DISP_IND,
-                    memory.reg, src_reg, 0, literal
+                    memory.reg, src_reg, 0, disp
                 ).to_word());
                 break;
             }
@@ -343,9 +345,11 @@ namespace m_asm::visitor {
                 if (!common::util::is_valid_literal(symbol->value)) {
                     throw std::logic_error("Literal can't be written as a 12-bit signed integer");
                 }
+                int32_t disp;
+                std::memcpy(&disp, &symbol->value, sizeof(symbol->value));
                 asm_ref.get().write_word(instruction_t::make_load(
                     instruction_t::load_mode::REG_DISP_IND,
-                    memory.reg, src_reg, 0, symbol->value
+                    memory.reg, src_reg, 0, disp
                 ).to_word());
                 break;
             }
@@ -360,11 +364,11 @@ namespace m_asm::visitor {
             }
             case operand_t::type_t::LITERAL_ADDR: {
                 asm_ref.get().write_word(instruction_t::make_store(
-                    instruction_t::store_mode::REG_DISP_IND,
+                    instruction_t::store_mode::MEM_REG_DISP_IND,
                     reg_t::pc, 0, memory.reg, 4
                 ).to_word());
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, 0, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(std::get<number_t>(memory.operand.value));
@@ -372,7 +376,7 @@ namespace m_asm::visitor {
             }
             case operand_t::type_t::SYMBOL_ADDR: {
                 asm_ref.get().write_word(instruction_t::make_store(
-                    instruction_t::store_mode::REG_DISP_IND,
+                    instruction_t::store_mode::MEM_REG_DISP_IND,
                     reg_t::pc, 0, memory.reg, 4
                 ).to_word());
                 const auto &symbol_name = std::get<symbol_t>(memory.operand.value);
@@ -386,21 +390,21 @@ namespace m_asm::visitor {
                 }
                 asm_ref.get().add_relocation(
                     asm_ref.get().current_section().data.size() + 4,
-                    symbol_it->local
+                    symbol_it->local == 'l'
                         ? symbol_it->section_index
                         : std::distance(symtab.begin(), symbol_it),
-                    symbol_it->local ? symbol_it->value : 0
+                    symbol_it->local == 'l' ? symbol_it->value : 0
                 );
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, 0, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(0);
                 break;
             }
             case operand_t::type_t::REG_VALUE: {
-                asm_ref.get().write_word(instruction_t::make_store(
-                    instruction_t::store_mode::REG_DISP_IND,
+                asm_ref.get().write_word(instruction_t::make_load(
+                    instruction_t::load_mode::REG_MOVE_INC,
                     std::get<reg_t>(memory.operand.value),
                     0, memory.reg, 0
                 ).to_word());
@@ -419,9 +423,11 @@ namespace m_asm::visitor {
                 if (!common::util::is_valid_literal(literal)) {
                     throw std::logic_error("Literal can't be written as a 12-bit signed integer");
                 }
+                int32_t disp;
+                std::memcpy(&disp, &literal, sizeof(literal));
                 asm_ref.get().write_word(instruction_t::make_store(
                     instruction_t::store_mode::MEM_REG_DISP_IND,
-                    dest_reg, 0, memory.reg, literal
+                    dest_reg, 0, memory.reg, disp
                 ).to_word());
                 break;
             }
@@ -436,9 +442,11 @@ namespace m_asm::visitor {
                 if (!common::util::is_valid_literal(symbol->value)) {
                     throw std::logic_error("Literal can't be written as a 12-bit signed integer");
                 }
+                int32_t disp;
+                std::memcpy(&disp, &symbol->value, sizeof(symbol->value));
                 asm_ref.get().write_word(instruction_t::make_store(
                     instruction_t::store_mode::MEM_REG_DISP_IND,
-                    dest_reg, 0, memory.reg, symbol->value
+                    dest_reg, 0, memory.reg, disp
                 ).to_word());
                 break;
             }
@@ -455,7 +463,7 @@ namespace m_asm::visitor {
                     reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(std::get<number_t>(uncond.operand.value));
@@ -477,13 +485,13 @@ namespace m_asm::visitor {
                 }
                 asm_ref.get().add_relocation(
                     asm_ref.get().current_section().data.size() + 4,
-                    symbol_it->local
+                    symbol_it->local == 'l'
                         ? symbol_it->section_index
                         : std::distance(symtab.begin(), symbol_it),
-                    symbol_it->local ? symbol_it->value : 0
+                    symbol_it->local == 'l' ? symbol_it->value : 0
                 );
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(0);
@@ -498,10 +506,10 @@ namespace m_asm::visitor {
             case operand_t::type_t::LITERAL_VALUE: {
                 asm_ref.get().write_word(instruction_t::make_jump(
                     instruction_t::jump_mode::REG_IND_DISP,
-                    reg_t::pc, 0, 0, 0
+                    reg_t::pc, 0, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(std::get<number_t>(uncond.operand.value));
@@ -510,7 +518,7 @@ namespace m_asm::visitor {
             case operand_t::type_t::SYMBOL_VALUE: {
                 asm_ref.get().write_word(instruction_t::make_jump(
                     instruction_t::jump_mode::REG_IND_DISP,
-                    reg_t::pc, 0, 0, 0
+                    reg_t::pc, 0, 0, 4
                 ).to_word());
                 const auto &symbol_name = std::get<symbol_t>(uncond.operand.value);
                 const auto &symtab = asm_ref.get().get_symbol_table();
@@ -523,13 +531,13 @@ namespace m_asm::visitor {
                 }
                 asm_ref.get().add_relocation(
                     asm_ref.get().current_section().data.size() + 4,
-                    symbol_it->local
+                    symbol_it->local == 'l'
                         ? symbol_it->section_index
                         : std::distance(symtab.begin(), symbol_it),
-                    symbol_it->local ? symbol_it->value : 0
+                    symbol_it->local == 'l' ? symbol_it->value : 0
                 );
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(0);
@@ -550,7 +558,7 @@ namespace m_asm::visitor {
                     reg_t::pc, branch.reg1, branch.reg2, 4
                 ).to_word());
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(std::get<number_t>(branch.operand.value));
@@ -572,13 +580,13 @@ namespace m_asm::visitor {
                 }
                 asm_ref.get().add_relocation(
                     asm_ref.get().current_section().data.size() + 4,
-                    symbol_it->local
+                    symbol_it->local == 'l'
                         ? symbol_it->section_index
                         : std::distance(symtab.begin(), symbol_it),
-                    symbol_it->local ? symbol_it->value : 0
+                    symbol_it->local == 'l' ? symbol_it->value : 0
                 );
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(0);
@@ -597,7 +605,7 @@ namespace m_asm::visitor {
                     reg_t::pc, branch.reg1, branch.reg2, 4
                 ).to_word());
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(std::get<number_t>(branch.operand.value));
@@ -619,13 +627,13 @@ namespace m_asm::visitor {
                 }
                 asm_ref.get().add_relocation(
                     asm_ref.get().current_section().data.size() + 4,
-                    symbol_it->local
+                    symbol_it->local == 'l'
                         ? symbol_it->section_index
                         : std::distance(symtab.begin(), symbol_it),
-                    symbol_it->local ? symbol_it->value : 0
+                    symbol_it->local == 'l' ? symbol_it->value : 0
                 );
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(0);
@@ -644,7 +652,7 @@ namespace m_asm::visitor {
                     reg_t::pc, branch.reg1, branch.reg2, 4
                 ).to_word());
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(std::get<number_t>(branch.operand.value));
@@ -666,13 +674,13 @@ namespace m_asm::visitor {
                 }
                 asm_ref.get().add_relocation(
                     asm_ref.get().current_section().data.size() + 4,
-                    symbol_it->local
+                    symbol_it->local == 'l'
                         ? symbol_it->section_index
                         : std::distance(symtab.begin(), symbol_it),
-                    symbol_it->local ? symbol_it->value : 0
+                    symbol_it->local == 'l' ? symbol_it->value : 0
                 );
                 asm_ref.get().write_word(instruction_t::make_jump(
-                    instruction_t::jump_mode::REG_IND_DISP,
+                    instruction_t::jump_mode::REG_DIR_DISP,
                     reg_t::pc, reg_t::pc, 0, 4
                 ).to_word());
                 asm_ref.get().write_word(0);
