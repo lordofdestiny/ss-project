@@ -7,8 +7,8 @@
 
 #include <string>
 #include <variant>
-#include <unordered_map>
 #include <vector>
+#include <map>
 
 namespace m_lnk {
     struct args {
@@ -22,7 +22,7 @@ namespace m_lnk {
         bool reloc = false;
         std::string out_file = "a.out";
         std::vector<std::string> in_files;
-        std::unordered_map<std::string, uint32_t> places{};
+        std::map<std::string, uint32_t> places{};
 
         friend std::ostream &operator<<(std::ostream &os, const args &args_obj);
 

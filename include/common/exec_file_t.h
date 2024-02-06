@@ -5,7 +5,6 @@
 #ifndef EXEC_FILE_T_H
 #define EXEC_FILE_T_H
 #include <map>
-#include <unordered_map>
 
 #include "object_file_t.h"
 
@@ -21,7 +20,7 @@ namespace common::util::serde {
 
 namespace common::symbol {
     struct exec_file_t {
-        using places_t = std::unordered_map<std::string, uint32_t>;
+        using places_t = std::map<std::string, uint32_t>;
 
         exec_file_t() = default;
 

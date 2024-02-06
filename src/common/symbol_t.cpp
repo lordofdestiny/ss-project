@@ -19,7 +19,7 @@ namespace common::symbol {
 
         os << std::setw(4) << std::dec << symbol.index;
         os << std::setw(7) << (symbol.type == symbol_t::type_t::SECTION ? "SCTN" : "NOTYPE");
-        os << std::setw(7) << (symbol.section_index == section_t::SECTION_UNDEF
+        os << std::setw(7) << (symbol.section_index == (section_t::SECTION_UNDEF & 0xFF'FF'FF'FF)
                                    ? "*UND*"s
                                    : std::to_string(symbol.section_index));
         os << std::hex << std::setw(10) << hex_to_string(symbol.value);
