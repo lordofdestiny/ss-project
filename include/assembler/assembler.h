@@ -79,10 +79,10 @@ namespace m_asm {
         }
 
         void write_word(const uint32_t word) {
-            write_byte((word >> 24) & 0xFF);
-            write_byte((word >> 16) & 0xFF);
-            write_byte((word >> 8) & 0xFF);
             write_byte(word & 0xFF);
+            write_byte((word >> 8) & 0xFF);
+            write_byte((word >> 16) & 0xFF);
+            write_byte((word >> 24) & 0xFF);
         }
 
         void add_relocation(uint64_t offset, uint64_t symbol_index, uint64_t addend) {

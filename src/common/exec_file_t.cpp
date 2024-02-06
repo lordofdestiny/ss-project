@@ -26,44 +26,29 @@ namespace common::symbol {
                 const auto &symbol = object_file.symtab.begin()[relocation.symbol];
                 const auto symbol_address = symbols[symbol.name] + relocation.addend;
                 for (int i = 0; i < 4; i++) {
-                    data[s_begin + relocation.offset + i] = (symbol_address >> (8 * (3 - i))) & 0xFF;
+                    data[s_begin + relocation.offset + i] = (symbol_address >> (8 * i)) & 0xFF;
                 }
             }
         }
     }
 
     void exec_file_t::setup_sections(object_file_t const &object_file, places_t const &places) {
-        // Sections with assigned place
-        for (const auto &[section_name, section_address]: places) {
-            const auto &section_it = std::find_if(
-                object_file.sections.begin(),
-                object_file.sections.end(),
-                [&](const auto &section) { return section.name == section_name; }
-            );
-            // Section does not exist
-            if (section_it == object_file.sections.end()) continue;
-
-            const auto section_size = static_cast<uint32_t>(section_it->data.size());
-            const auto section_end = section_address + section_size;
-
-            if (free_address < section_end) {
-                free_address = section_end;
-            }
-
-            sections[section_name] = section_range_t{section_address, section_end};
-        }
-
-        // Assign other sections
         for (const auto &section: object_file.sections) {
-            if (places.find(section.name) != places.end()) {
-                continue; // Already processed
-            }
-            const auto section_address = free_address;
-            const auto section_size = static_cast<uint32_t>(section.data.size());
-            free_address += section_size;
+            auto place_it = places.find(section.name);
+            uint32_t section_address;
+            if (place_it != places.end()) {
+                section_address = place_it->second;
 
+                if (section_address + section.data.size() > free_address) {
+                    free_address = place_it->second + section.data.size();
+                }
+            } else {
+                section_address = free_address;
+                free_address += section.data.size();
+            }
             sections[section.name] = section_range_t{
-                section_address, section_address + section_size
+                section_address,
+                section_address + static_cast<uint32_t>(section.data.size())
             };
         }
     }
