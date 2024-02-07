@@ -125,7 +125,7 @@ assembler: $(ASSEMBLER)
 linker: $(LINKER)
 emulator: $(EMULATOR)
 
-clean:
+clean: clean_tests
 	rm -rf $(BUILD_DIR)
 	find . \( -name "*.cc" -o -name "*.hh" \) -type f -delete
 
