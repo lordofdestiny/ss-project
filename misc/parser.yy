@@ -1,6 +1,6 @@
 %skeleton "lalr1.cc" // -*- C++ -*-
-%require "3.8.1"
-%header
+%require "3.8.1" // If 3.8.1 is not available, move to 3.5.1 and follow the comments
+%header // Remove for version 3.5.1
 
 %define api.token.raw
 %define api.token.constructor
@@ -59,6 +59,7 @@
 
 
 %token ENDL
+// %token YYEOF 0 // Needed for bison 3.5.1. No need for later versions, including 3.8.1
 
 // Literal tokens
 %token

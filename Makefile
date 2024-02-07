@@ -73,7 +73,8 @@ $(COMMON_OBJ_DIR)/%.o: $(COMMON_DIR)/%.cpp Makefile
 
 $(ASM_DIR)/$(PARSER_CC): $(MISC_DIR)/$(PARSER_SRC)
 	@mkdir -p $(dir $@)
-	bison -Wcounterexamples -o $@ $<
+	bison -Wcounterexamples -o $@ $< # Works with bison 3.8.1
+	# bison -d -o $@ $< # for compatibility with bison 3.5.1
 	for file in $(ASM_DIR)/*.hh; do mv $$file $(ASM_INC); done
 
 
