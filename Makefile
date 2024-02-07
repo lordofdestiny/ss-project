@@ -13,7 +13,7 @@ ASM_INC := $(DIR_INC)/assembler
 LNK_INC := $(DIR_INC)/linker
 EMU_INC := $(DIR_INC)/emulator
 
-DEBUG_FLAG = -D DEBUG_PRINT=1
+DEBUG_FLAG = -D DEBUG_PRINT=0
 
 #executables
 ASSEMBLER := $(BUILD_DIR)/assembler
@@ -148,5 +148,5 @@ test_b:
 	@cd ./tests/nivo-b; chmod +x start.sh; ./start.sh
 
 
-.PHONY: all assembler linker emulator clean clen_tests test_a test_b
+.PHONY: all assembler linker emulator clean clean_tests test_a test_b
 .PRECIOUS: %.o

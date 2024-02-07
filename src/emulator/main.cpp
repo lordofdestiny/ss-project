@@ -26,7 +26,9 @@ int main(const int argc, char **argv) {
         common::util::serde::deserialize(ifs, exec_file);
         ifs.close();
 
+#if DEBUG_PRINT
         std::cout << exec_file << '\n';
+#endif
 
         m_emu::context_t context(exec_file.data);
         emulate(context);
