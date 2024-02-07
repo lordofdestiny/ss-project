@@ -113,6 +113,10 @@ $(EMULATOR): $(EMU_OBJ) $(COMMON_OBJ)
 	@mkdir -p $(dir $@)
 	g++ $(CXXFLAGS) -I $(EMU_INC) -o $@ $^
 
+-include $(COMMON_OBJ:.o=.d)
+-include $(ASM_OBJ:.o=.d)
+-include $(LNK_OBJ:.o=.d)
+-include $(EMU_OBJ:.o=.d)
 
 all: assembler linker emulator
 
@@ -124,10 +128,24 @@ clean:
 	rm -rf $(BUILD_DIR)
 	find . \( -name "*.cc" -o -name "*.hh" \) -type f -delete
 
-.PHONY: all assembler linker emulator clean
-.PRECIOUS: %.o
+clean_tests:
+	@cd ./tests/nivo-a; rm -f *.o program.hex assembler linker emulator
+	@cd ./tests/nivo-b; rm -f *.o program.hex assembler linker emulator
 
--include $(COMMON_OBJ:.o=.d)
--include $(ASM_OBJ:.o=.d)
--include $(LNK_OBJ:.o=.d)
--include $(EMU_OBJ:.o=.d)
+test_a:
+	@cd ./tests/nivo-a; rm -f *.o program.hex assembler linker emulator
+	@cp ./build/assembler ./tests/nivo-a/assembler
+	@cp ./build/linker ./tests/nivo-a/linker
+	@cp ./build/emulator ./tests/nivo-a/emulator;
+	@cd ./tests/nivo-a; chmod +x start.sh; ./start.sh
+
+test_b:
+	@cd ./tests/nivo-b; rm -f *.o program.hex assembler linker emulator
+	@cp ./build/assembler ./tests/nivo-b/assembler
+	@cp ./build/linker ./tests/nivo-b/linker
+	@cp ./build/emulator ./tests/nivo-b/emulator;
+	@cd ./tests/nivo-b; chmod +x start.sh; ./start.sh
+
+
+.PHONY: all assembler linker emulator clean clen_tests test_a test_b
+.PRECIOUS: %.o
