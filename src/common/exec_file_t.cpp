@@ -33,22 +33,37 @@ namespace common::symbol {
     }
 
     void exec_file_t::setup_sections(object_file_t const &object_file, places_t const &places) {
-        for (const auto &section: object_file.sections) {
-            auto place_it = places.find(section.name);
-            uint32_t section_address;
-            if (place_it != places.end()) {
-                section_address = place_it->second;
+        // Sections with assigned place
+        for (const auto &[section_name, section_address]: places) {
+            const auto &section_it = std::find_if(
+                object_file.sections.begin(),
+                object_file.sections.end(),
+                [&](const auto &section) { return section.name == section_name; }
+            );
+            // Section does not exist
+            if (section_it == object_file.sections.end()) continue;
 
-                if (section_address + section.data.size() > free_address) {
-                    free_address = place_it->second + section.data.size();
-                }
-            } else {
-                section_address = free_address;
-                free_address += section.data.size();
+            const auto section_size = static_cast<uint32_t>(section_it->data.size());
+            const auto section_end = section_address + section_size;
+
+            if (free_address < section_end) {
+                free_address = section_end;
             }
+
+            sections[section_name] = section_range_t{section_address, section_end};
+        }
+
+        // Assign other sections
+        for (const auto &section: object_file.sections) {
+            if (places.find(section.name) != places.end()) {
+                continue; // Already processed
+            }
+            const auto section_address = free_address;
+            const auto section_size = static_cast<uint32_t>(section.data.size());
+            free_address += section_size;
+
             sections[section.name] = section_range_t{
-                section_address,
-                section_address + static_cast<uint32_t>(section.data.size())
+                section_address, section_address + section_size
             };
         }
     }
@@ -65,7 +80,7 @@ namespace common::symbol {
             os << "Sections: \n";
             os << std::hex << std::setfill('0');
             for (const auto &[name, range]: exec_file.sections) {
-                if (name == "$" || name == "") continue;
+                if (name == "$" || name.empty()) continue;
                 os << name << ": [0x" << std::setw(8) << range.begin;
                 os << ", 0x" << std::setw(8) << range.end << "]\n";
             }

@@ -32,34 +32,38 @@ int main(const int argc, char **argv) {
     } else if (argv[1] == "-o"s && argc == 4) {
         ofile = argv[2];
         ifile = argv[3];
-    } else if(argv[2] == "-o"s && argc == 4) {
+    } else if (argv[2] == "-o"s && argc == 4) {
         ofile = argv[3];
         ifile = argv[1];
     }
 
     using m_asm::parser_driver, m_asm::parse_error_t, m_asm::parsed_file_t;
-    // parser_driver::trace_scanning(false);
-    // parser_driver::trace_parsing(false);
-    parser_driver driver;
-    auto &result = driver.parse(ifile);
+    try {
+        // parser_driver::trace_scanning(false);
+        // parser_driver::trace_parsing(false);
+        parser_driver driver;
+        auto &result = driver.parse(ifile);
 
-    if (const auto *p_val = std::get_if<parse_error_t>(&result)) {
-        std::cout << *p_val << "\n";
-        return PARSE_ERROR;
-    }
+        if (const auto *p_val = std::get_if<parse_error_t>(&result)) {
+            std::cout << *p_val << "\n";
+            return PARSE_ERROR;
+        }
 
-    auto &parsed_src = std::get<parsed_file_t>(result);
-    
-    m_asm::assembler assembler(std::ref(parsed_src));
-    const auto object_file_data = assembler.assemble();
+        auto &parsed_src = std::get<parsed_file_t>(result);
+
+        m_asm::assembler assembler(std::ref(parsed_src));
+        const auto object_file_data = assembler.assemble();
 #if DEBUG_PRINT
-    std::cout << object_file_data;
+        std::cout << object_file_data;
 #endif
 
-    std::filesystem::create_directories(std::filesystem::absolute(ofile).parent_path());
-    std::ofstream out_stream(ofile, std::ios::binary);
-    common::util::serde::serialize(out_stream, object_file_data);
-    out_stream.close();
-
+        std::filesystem::create_directories(std::filesystem::absolute(ofile).parent_path());
+        std::ofstream out_stream(ofile, std::ios::binary);
+        common::util::serde::serialize(out_stream, object_file_data);
+        out_stream.close();
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return -1;
+    }
     return OK;
 }

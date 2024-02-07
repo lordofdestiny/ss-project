@@ -17,26 +17,16 @@ namespace m_emu {
                 word |= (memory.at(address + i) & 0xFF) << (i * 8);
             }
         }
-
-        /*std::cout << std::hex << std::setfill('0');
-        std::cout << "READ FROM= 0x" << std::setw(8) << address << "; VALUE=0x" << std::setw(8) << word << '\n';
-        std::cout << std::dec << std::setfill(' ');*/
-
         return word;
     }
 
     common::instruction_t context_t::read_instr() const {
         const auto raw_bytes = read_word(pc);
-        //std::cout << std::hex << "PC: " << pc << "; Instr: " << raw_bytes << std::dec << std::endl;
         pc += 4;
         return common::instruction_t::from_word(raw_bytes);
     }
 
     void context_t::write_to(const uint32_t address, const uint32_t value) {
-        /*std::cout << std::hex << std::setfill('0');
-        std::cout << "WRITE TO= 0x" << std::setw(8) << address << "; VALUE=0x" << std::setw(8) << value << '\n';
-        std::cout << std::dec << std::setfill(' ');*/
-
         if (address == 0xFF'FF'FF'00) {
             std::cout << static_cast<char>(value & 0xFF) << std::flush;
         }

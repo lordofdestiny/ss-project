@@ -412,7 +412,7 @@ namespace m_asm::visitor {
             }
             case operand_t::type_t::REG_MEMORY_ADDR: {
                 asm_ref.get().write_word(instruction_t::make_store(
-                    instruction_t::store_mode::MEM_REG_DISP_IND,
+                    instruction_t::store_mode::REG_DISP_IND,
                     std::get<reg_t>(memory.operand.value),
                     0, memory.reg, 0
                 ).to_word());
@@ -426,7 +426,7 @@ namespace m_asm::visitor {
                 int32_t disp;
                 std::memcpy(&disp, &literal, sizeof(literal));
                 asm_ref.get().write_word(instruction_t::make_store(
-                    instruction_t::store_mode::MEM_REG_DISP_IND,
+                    instruction_t::store_mode::REG_DISP_IND,
                     dest_reg, 0, memory.reg, disp
                 ).to_word());
                 break;

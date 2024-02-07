@@ -44,37 +44,38 @@ int main(int argc, char **argv) {
         }
         return MISSING_FILES;
     }
-
-    const auto &obj_files = std::get<m_lnk::input_files_t>(files);
+    try {
+        const auto &obj_files = std::get<m_lnk::input_files_t>(files);
 #if DEBUG_PRINT
-    int obj_file_cnt = 1;
-    for (const auto &obj_file: obj_files) {
-        std::cout << "File " << obj_file_cnt << ": \n";
+        int obj_file_cnt = 1;
+        for (const auto &obj_file: obj_files) {
+            std::cout << "File " << obj_file_cnt << ": \n";
+            std::cout << obj_file;
+            obj_file_cnt++;
+        }
+#endif
+
+        m_lnk::linker linker;
+        const auto obj_file = linker.link(obj_files);
+#if DEBUG_PRINT
+        std::cout << "Result: \n";
         std::cout << obj_file;
-        obj_file_cnt++;
-    }
 #endif
 
-    m_lnk::linker linker;
-    const auto obj_file = linker.link(obj_files);
-#if DEBUG_PRINT
-    std::cout << "Result: \n";
-    std::cout << obj_file;
-#endif
-
-
-
-    if (as_reloc) {
-        std::ofstream ofs(out_file, std::ios::binary);
-        common::util::serde::serialize(ofs, obj_file);
-        ofs.close();
-    } else if (as_hex) {
-        common::symbol::exec_file_t exec_file(obj_file, places);
-        std::cout << exec_file;
-        std::ofstream ofs(out_file, std::ios::binary);
-        common::util::serde::serialize(ofs, exec_file);
-        ofs.close();
+        if (as_reloc) {
+            std::ofstream ofs(out_file, std::ios::binary);
+            common::util::serde::serialize(ofs, obj_file);
+            ofs.close();
+        } else if (as_hex) {
+            common::symbol::exec_file_t exec_file(obj_file, places);
+            std::cout << exec_file;
+            std::ofstream ofs(out_file, std::ios::binary);
+            common::util::serde::serialize(ofs, exec_file);
+            ofs.close();
+        }
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return -1;
     }
-
     return OK;
 }
