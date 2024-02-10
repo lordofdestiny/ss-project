@@ -7,7 +7,7 @@
 #include <tuple>
 
 // #include "common/operand.h"
-#include "../../include/common/operand.h"
+#include "common/operand.h"
 
 namespace common::operand {
     reg_t reg_t::sp = 14;

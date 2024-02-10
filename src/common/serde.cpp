@@ -1,7 +1,7 @@
 //
 // Created by djumi on 2/4/2024.
 //
-#include "../../include/common/serde.h"
+#include "common/serde.h"
 
 namespace common::util::serde {
     void serialize(std::ofstream &ofs, symbol::object_file_t const &object_file) {

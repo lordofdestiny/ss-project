@@ -6,7 +6,7 @@
 #include <iterator>
 #include <iostream>
 #include <unordered_map>
-#include "../../include/linker/linker.h"
+#include "linker/linker.h"
 
 namespace m_lnk {
     using namespace common::symbol;

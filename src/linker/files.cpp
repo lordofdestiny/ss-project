@@ -7,7 +7,7 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
-#include "../../include/linker/files.h"
+#include "linker/files.h"
 
 namespace m_lnk {
     std::variant<input_files_t, std::vector<file_error_t> > load_in_files(

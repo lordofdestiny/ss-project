@@ -1,3 +1,5 @@
+NPROC = $(shell grep -c 'processor' /proc/cpuinfo)
+MAKEFLAGS += -j$(NPROC)
 
 BUILD_DIR := build
 COMMON_OBJ_DIR := $(BUILD_DIR)/obj/common
@@ -66,6 +68,9 @@ EMU_OBJ = $(addprefix $(EMU_OBJ_DIR)/, $(EMU_SRC:.cpp=.o))
 vpath $(EMU_SRC)/%.cpp $(sort $(dir $(EMU_SRC)))
 
 
+all: assembler linker emulator
+
+
 $(COMMON_OBJ_DIR)/%.o: $(COMMON_DIR)/%.cpp Makefile
 	@mkdir -p $(dir $@)
 	${CXX} -c ${CXXFLAGS} -I $(COMMON_INC) -o $@ $<
@@ -118,8 +123,6 @@ $(EMULATOR): $(EMU_OBJ) $(COMMON_OBJ)
 -include $(ASM_OBJ:.o=.d)
 -include $(LNK_OBJ:.o=.d)
 -include $(EMU_OBJ:.o=.d)
-
-all: assembler linker emulator
 
 assembler: $(ASSEMBLER)
 linker: $(LINKER)

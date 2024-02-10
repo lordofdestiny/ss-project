@@ -3,7 +3,7 @@
 //
 
 #include <string>
-#include "../../include/linker/args.h"
+#include "linker/args.h"
 
 #include <algorithm>
 #include <iterator>

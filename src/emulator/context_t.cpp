@@ -2,8 +2,7 @@
 // Created by djumi on 2/5/2024.
 //
 
-#include <cstring>
-#include "../../include/emulator/context_t.h"
+#include "emulator/context_t.h"
 
 #include <iomanip>
 #include <iostream>

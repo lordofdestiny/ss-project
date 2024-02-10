@@ -11,7 +11,7 @@ extern "C" {
 #include <fcntl.h>
 }
 
-#include "../../include/emulator/context_t.h"
+#include "emulator/context_t.h"
 
 
 namespace m_emu {

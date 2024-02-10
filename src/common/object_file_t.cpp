@@ -5,7 +5,7 @@
 // #include "common/object_file.h"
 
 #include <iterator>
-#include "../../include/common/object_file_t.h"
+#include "common/object_file_t.h"
 
 namespace common::symbol {
     std::ostream &operator<<(std::ostream &os, object_file_t const &of) {
