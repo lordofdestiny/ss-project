@@ -23,7 +23,7 @@ namespace common::symbol {
             }
 
             for (const auto &relocation: section.relocations) {
-                const auto &symbol = object_file.symtab.begin()[relocation.symbol];
+                const auto symbol = object_file.symtab.begin()[relocation.symbol];
                 const auto symbol_address = symbols[symbol.name] + relocation.addend;
                 for (int i = 0; i < 4; i++) {
                     data[s_begin + relocation.offset + i] = (symbol_address >> (8 * i)) & 0xFF;

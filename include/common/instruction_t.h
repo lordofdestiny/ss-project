@@ -122,7 +122,7 @@ namespace common {
             return (code << 28) | (mode << 24) | (reg1 << 20) | (reg2 << 16) | (reg3 << 12) | (disp & 0xFFF);
         }
 
-        static [[nodiscard]] instruction_t from_word(const uint32_t word) {
+        [[nodiscard]] static instruction_t from_word(const uint32_t word) {
             int32_t signed_value;
             std::memcpy(&signed_value, &word, sizeof(word));
             return instruction_t{

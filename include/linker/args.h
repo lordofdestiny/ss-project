@@ -9,6 +9,7 @@
 #include <variant>
 #include <vector>
 #include <map>
+#include <cstdint>
 
 namespace m_lnk {
     struct args {

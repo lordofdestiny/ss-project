@@ -2,12 +2,12 @@
 // Created by djumi on 11/22/2023.
 //
 
+#include <array>
 #include "ast/stmt_t.h"
 #include "visitors/source_printer.h"
 
 namespace m_asm::ast {
-    stmt_t::visitor_t::~visitor_t() {
-    }
+    stmt_t::visitor_t::~visitor_t() = default;
 
     std::array<const char *, 26> instruction_names{
         "HALT",
