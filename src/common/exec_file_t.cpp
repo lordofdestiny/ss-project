@@ -35,10 +35,11 @@ namespace common::symbol {
     void exec_file_t::setup_sections(object_file_t const &object_file, places_t const &places) {
         // Sections with assigned place
         for (const auto &[section_name, section_address]: places) {
+            auto& section_name_var = section_name;
             const auto &section_it = std::find_if(
                 object_file.sections.begin(),
                 object_file.sections.end(),
-                [&](const auto &section) { return section.name == section_name; }
+                [&](const auto &section) { return section.name == section_name_var; }
             );
             // Section does not exist
             if (section_it == object_file.sections.end()) continue;

@@ -7,8 +7,8 @@
 
 #include <filesystem>
 #include <variant>
+#include <misc/parser.hh>
 #include "parser_objects.h"
-#include "parser.hh"
 
 extern int yy_flex_debug;
 extern FILE *yyin;

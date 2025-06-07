@@ -1,9 +1,8 @@
 .idea/workspace.xml
 build
-location.hh
-parser.hh
-lexer.cc
-parser.cc
+out
+tests/nivo-*
+!tests/nivo-*/*.s
 
 # Prerequisites
 *.d
@@ -57,3 +56,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# make sure not to miss any makefiles
+!Makefile*

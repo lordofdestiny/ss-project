@@ -6,7 +6,6 @@
 #include <variant>
 #include <tuple>
 
-// #include "common/operand.h"
 #include "common/operand.h"
 
 namespace common::operand {

@@ -1,0 +1,41 @@
+include $(MakefileBuildRoot)/Makefile.global_vars
+
+#setup module-lib
+lib-name-var=$(MODULE_NAME)-lib
+$(lib-name-var):=$(MODULE_NAME)
+
+#setup module-bin
+bin-name-var=$(MODULE_NAME)-bin
+$(bin-name-var):=$(MODULE_NAME)
+
+#setup module-lib-path
+lib-path-var=$(MODULE_NAME)-lib-path
+$(lib-path-var):=$(BUILD_LIB_DIR)/lib$(MODULE_NAME).a
+
+#setup module-bin-path
+bin-path-var=$(MODULE_NAME)-bin-path
+$(bin-path-var):=$(OUT_DIR)/$(MODULE_NAME)
+
+#setup module-build-include-path
+build-include-path-var=$(MODULE_NAME)-build-include-path
+$(build-include-path-var):=$(BUILD_INC_DIR)/$(MODULE_NAME)
+
+#setup module-build-src-path
+build-src-path-var=$(MODULE_NAME)-build-src-path
+$(build-src-path-var):=$(BUILD_SRC_DIR)/$(MODULE_NAME)
+
+#setup module-src-path
+src-path-var=$(MODULE_NAME)-src-path
+$(src-path-var):=$(SRC_DIR)/$(MODULE_NAME)
+
+#setup module-include-path
+include-path-var=$(MODULE_NAME)-include-path
+$(include-path-var):=$(INC_DIR)/$(MODULE_NAME) $(BUILD_INC_DIR) $(INC_DIR)
+
+#setup module-obj-path
+obj-path-var=$(MODULE_NAME)-obj-path
+$(obj-path-var):=$(BUILD_OBJ_DIR)/$(MODULE_NAME)
+
+#setup module-obj
+obj-var=$(MODULE_NAME)-obj
+$(obj-var):=$($(obj-path-var))/$(MODULE_NAME).o

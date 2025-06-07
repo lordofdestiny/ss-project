@@ -1,0 +1,46 @@
+VERBOSE ?= 0
+ifeq ($(VERBOSE), 1)
+	SILENT=
+else ifeq ($(VERBOSE), 0)
+	SILENT=@
+else 
+	$(warn Unknown option value: VERBOSE=$(VERBOSE).)
+endif
+
+NPROC = $(shell grep -c 'processor' /proc/cpuinfo)
+# MAKEFLAGS += -j$(NPROC)
+
+CXX=g++
+
+DEBUG_FLAGS = -D DEBUG_PRINT=0
+
+#default flags
+CXXFLAGS = -Wall -Werror -Wextra -Wpedantic -std=c++17 -pedantic-errors -Wno-attributes -Wno-ignored-attributes
+CXXFLAGS += -MMD -MP -MF"$(patsubst src/%,build/obj/%,$(@:%.o=%.d))"
+
+DEBUG ?= 1
+ifeq ($(DEBUG), 1)
+	CXXFLAGS += $(DEBUG_FLAGS) -g
+else ifneq ($(DEBUG), 0)
+	$(warn Unknown option value: VERBOSE=$(VERBOSE).)
+endif
+
+VALID_OPT=0 1 2 3
+OPT ?= 0
+ifeq ($(filter $(OPT),$(VALID_OPT)),$(OPT))
+	CXXFLAGS += -O$(OPT)
+else
+    $(error Invalid value, OPT=$(OPT))
+endif
+
+INC_DIR := include
+SRC_DIR := src
+LIB_DIR := lib
+OBJ_DIR := obj
+OUT_DIR := out
+
+BUILD_DIR=build
+BUILD_INC_DIR := $(BUILD_DIR)/$(INC_DIR)
+BUILD_SRC_DIR := $(BUILD_DIR)/$(SRC_DIR)
+BUILD_LIB_DIR := $(BUILD_DIR)/$(LIB_DIR)
+BUILD_OBJ_DIR := $(BUILD_DIR)/$(OBJ_DIR)
