@@ -29,6 +29,9 @@ VALID_OPT=0 1 2 3
 OPT ?= 0
 ifeq ($(filter $(OPT),$(VALID_OPT)),$(OPT))
 	CXXFLAGS += -O$(OPT)
+	ifeq ($(OPT), 2)
+		CXXFLAGS += -flto=auto
+	endif
 else
     $(error Invalid value, OPT=$(OPT))
 endif

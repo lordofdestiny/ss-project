@@ -36,4 +36,4 @@ test_b: ./tests/nivo-b
 	@cp $(bin_paths) $<
 	@cd $<; bash ./start.sh
 
-.PHONY: all assembler linker emulator clean clean_tests test_a test_b
+.PHONY: all $(binaries) clean clean_tests test_a test_b
